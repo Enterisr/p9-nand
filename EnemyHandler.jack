@@ -1,0 +1,64 @@
+
+class EnemyHandler {
+
+
+   static Array enemies;
+   static int enemiesCount;
+   static int startScreenLoc;
+   constructor EnemyHandler new(int _screenLoc) {
+      let startScreenLoc =_screenLoc;
+      let MOVEMENT = 2; 
+      do draw();
+      return this;
+   }
+
+   method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+   }
+
+    function void spawnEnemies(int num){
+        var int i;
+        var int tempMul;
+        let i = 0;
+
+        let enemiesCount = enemiesCount  +num;
+        let tempMul = 
+        while(i<num){
+            enemies[i] = Enemy.new();
+            enemies[i].screenLoc = startScreenLoc
+            enemies[i].draw();
+            i=i+1;
+        }
+        enemies[enemiesCount] = Enemy.new();
+        
+    }
+    function void drawEnemies(int num){
+        
+        var int i;
+        let i = 0;
+        while(i<num){
+            enemies[enemiesCount] = Enemy.new();
+            enemies[enemiesCount].screenLoc = 
+            enemies[enemiesCount].draw();
+            i=i+1;
+        }
+        enemies[enemiesCount] = Enemy.new();
+        
+    }
+
+   method void delete() {
+      do Screen.setColor(false);
+      do Screen.drawRectangle(x, y, x + size, y + size);
+      do dispose();
+      return;
+   }
+
+   method int getX(){
+      return x;
+   }
+   method int getY(){
+      return y;
+   }
+
+}

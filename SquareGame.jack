@@ -1,0 +1,119 @@
+
+class SquareGame {
+   field Square square; // the square of this game
+   field int direction; // the square's current direction: 
+                        // 0=none, 1=up, 2=down
+   field Array bullets;
+   field int bulletCount;
+   field Array enemies;
+   field int enemiesCount;
+
+
+   /** Constructs a new Square Game. */
+   constructor SquareGame new() {
+      // Creates a 30 by 30 pixels square and positions it at the top-left
+      // of the screen.
+      let square = Square.new(480, 220, 20);
+      let bullets = Array.new(3); //we dont want to overload the system
+      let direction = 0;  // initial state is no movement
+      let bulletCount = 0;     
+      let enemiesCount = 0;
+      let enemies = Array.new(30);
+      return this;
+   }
+
+   /** Disposes this game. */
+   method void dispose() {
+      do square.dispose();
+      do Memory.deAlloc(this);
+      return;
+   }
+
+   /** Moves the square in the current direction. */
+   method void moveSquare() {
+      if (direction = 3) { do square.moveLeft(); }
+      if (direction = 4) { do square.moveRight(); }
+      do Sys.wait(1);  // delays the next movement
+      return;
+   }
+   method void removeBullet(int idx){
+      var int i;
+      var Bullet bTemp;
+      let bTemp =  bullets[i];
+      do bTemp.delete();
+      let i = idx+1;
+
+      while(bulletCount>i ){
+        let bTemp =  bullets[i];
+        let bullets[i-1] = bTemp;
+        let i = i+1;
+      }
+      return;
+   }
+   method void spawnBullet(int playerX,int playerY) {
+      var Bullet b;
+      if(bulletCount<3)
+      {   
+         let b = Bullet.new(playerX+10,playerY-7);
+         let bullets[bulletCount] = b;
+         let bulletCount=bulletCount+1;
+
+      }
+      return;
+   }
+   method void drawBullets(){
+      var Bullet b;
+      var int i;
+      var int res;
+      let i=0;
+      while(i<bulletCount){
+         let b = bullets[i];
+         let res =  b.move();
+         if(~res){
+            do Output.printString("removing bullet!");
+            do removeBullet(i);
+            let bulletCount = bulletCount -1;
+         }
+         let i=i+1;
+      }
+      return;
+   }
+
+   /** Runs the game: handles the user's inputs and moves the square accordingly */
+   method void run() {
+      var char key;  // the key currently pressed by the user
+      var boolean exit;
+      var boolean toShoot;
+      let exit = false;
+      let toShoot = false;
+      while (~exit) {
+
+         // waits for a key to be pressed
+         while (key = 0) {         
+            do drawBullets();
+            let key = Keyboard.keyPressed();
+            let direction = 0;
+            let toShoot = false;
+         }
+         if (key = 81)  { let exit = true; }     // q key
+         if (key = 130) { let direction = 3; }   // left arrow
+         if (key = 132) { let direction = 4; }   // right arrow
+         if (key = 32)  { let toShoot = true; } //shoot
+
+         // waits for the key to be released
+         while (~(key = 0)) {
+            do drawBullets();
+            let key = Keyboard.keyPressed();
+            do moveSquare();
+            if(toShoot){
+               let toShoot = false;
+               do spawnBullet(square.getX(),square.getY());
+            } 
+         }
+     } // while
+     return;
+   }
+}
+
+
+
