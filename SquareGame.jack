@@ -5,20 +5,17 @@ class SquareGame {
                         // 0=none, 1=up, 2=down
    field Array bullets;
    field int bulletCount;
-   field Array enemies;
-   field int enemiesCount;
+   field EnemyHandler enemyHandler;
+
 
 
    /** Constructs a new Square Game. */
    constructor SquareGame new() {
-      // Creates a 30 by 30 pixels square and positions it at the top-left
-      // of the screen.
-      let square = Square.new(480, 220, 20);
+      let enemyHandler = EnemyHandler.new();
+      let square = Square.new(480, 200, 20);
       let bullets = Array.new(3); //we dont want to overload the system
       let direction = 0;  // initial state is no movement
       let bulletCount = 0;     
-      let enemiesCount = 0;
-      let enemies = Array.new(30);
       return this;
    }
 
@@ -79,6 +76,32 @@ class SquareGame {
       return;
    }
 
+   method void drawBase(){
+
+
+      //256 lines, each line have 32 words, each word have 16 bit
+      //line takes 32 memory.poke
+      //last word is in 
+      var int wordIndex;
+      var int memAddress;
+      var int i;
+      let i = 0;
+      // 24574 - 640; SCREENSIZE - OFFSET TO DRAW+SPACE
+      let memAddress = 23934;
+      while(i<224)
+      {
+         do Memory.poke(memAddress + i, -1);
+         let i=i+1;
+      }
+      return;
+   }
+   
+   method void drawScene(){
+      do enemyHandler.drawEnemies();
+      do drawBullets();
+      return;
+   }
+
    /** Runs the game: handles the user's inputs and moves the square accordingly */
    method void run() {
       var char key;  // the key currently pressed by the user
@@ -86,11 +109,13 @@ class SquareGame {
       var boolean toShoot;
       let exit = false;
       let toShoot = false;
+      do enemyHandler.spawnEnemies(1);
+      do drawBase();
       while (~exit) {
 
          // waits for a key to be pressed
          while (key = 0) {         
-            do drawBullets();
+            do drawScene();
             let key = Keyboard.keyPressed();
             let direction = 0;
             let toShoot = false;
@@ -102,7 +127,7 @@ class SquareGame {
 
          // waits for the key to be released
          while (~(key = 0)) {
-            do drawBullets();
+            do drawScene();
             let key = Keyboard.keyPressed();
             do moveSquare();
             if(toShoot){

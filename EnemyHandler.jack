@@ -2,13 +2,15 @@
 class EnemyHandler {
 
 
-   static Array enemies;
-   static int enemiesCount;
-   static int startScreenLoc;
-   constructor EnemyHandler new(int _screenLoc) {
-      let startScreenLoc =_screenLoc;
-      let MOVEMENT = 2; 
-      do draw();
+   field Array enemies;
+   field int enemiesCount;
+   field int startScreenLoc;
+   static int MAX_ENEMIES;
+   constructor EnemyHandler new() {
+      let startScreenLoc =100;
+      let MAX_ENEMIES = 20;
+      let enemiesCount = 0; 
+      let enemies = Array.new(MAX_ENEMIES);
       return this;
    }
 
@@ -17,48 +19,49 @@ class EnemyHandler {
       return;
    }
 
-    function void spawnEnemies(int num){
+    method void spawnEnemies(int num){
         var int i;
-        var int tempMul;
+        var int memLocationShift;
+        var int finalMemLoc;
+        var int reqSize;
+        var Enemy enemyIt;
         let i = 0;
+        let reqSize = enemiesCount + num;
 
-        let enemiesCount = enemiesCount  +num;
-        let tempMul = 
-        while(i<num){
-            enemies[i] = Enemy.new();
-            enemies[i].screenLoc = startScreenLoc
-            enemies[i].draw();
-            i=i+1;
+        if(reqSize>MAX_ENEMIES){
+            do Sys.error(101);
+            return;
         }
-        enemies[enemiesCount] = Enemy.new();
         
+        let enemiesCount = enemiesCount  +num;
+        while(i<num){
+            let memLocationShift =finalMemLoc + 2;
+            let finalMemLoc = startScreenLoc +memLocationShift;
+            let enemyIt = Enemy.new(finalMemLoc); 
+            do enemyIt.draw();
+            let enemies[i] = enemyIt;
+            let i=i+1;
+        }
+
+        return;
     }
-    function void drawEnemies(int num){
+    method void drawEnemies(){
         
         var int i;
+        var Enemy enemyIt;
         let i = 0;
-        while(i<num){
-            enemies[enemiesCount] = Enemy.new();
-            enemies[enemiesCount].screenLoc = 
-            enemies[enemiesCount].draw();
-            i=i+1;
+        while(i<enemiesCount){
+            let enemyIt = enemies[i]; 
+            do enemyIt.move();
+            let i=i+1;
         }
-        enemies[enemiesCount] = Enemy.new();
-        
+        return;
     }
 
    method void delete() {
-      do Screen.setColor(false);
-      do Screen.drawRectangle(x, y, x + size, y + size);
       do dispose();
       return;
    }
 
-   method int getX(){
-      return x;
-   }
-   method int getY(){
-      return y;
-   }
 
 }

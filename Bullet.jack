@@ -1,15 +1,17 @@
 
 class Bullet {
 
-   field int x, y;
-   field int size; 
+   field int screenLoc;
+   static int LENGTH; 
    static int MOVEMENT;
-
-   constructor Bullet new(int Ax, int Ay) {
-      let x = Ax;
-      let y = Ay;
-      let size = 5;
-      let MOVEMENT = 2; 
+   static int animationDelayCycles;
+   field int currentDelayCycle;
+   constructor Bullet new() {
+      let screenLoc = -1;
+      let MOVEMENT = 2;
+      let LENGTH = 10;
+      let animationDelayCycles = 100;
+      let currentDelayCycle = 0;
       do draw();
       return this;
    }
@@ -21,35 +23,61 @@ class Bullet {
    }
 
    method void draw() {
-      do Screen.setColor(true);
-      do Screen.drawRectangle(x, y, x + size, y + size);
+      var int line, i, memAddress; 
+      let memAddress = 16384+screenLoc;
+      let i = 0;
+      while(i<LENGTH){
+         let line =Math.multiply(32,i);
+         do  Helpers.safeScreenPoke(memAddress +line, 124);
+         let i=i+1;
+      }
+      // // column 0
+      // // column 1
+      // do Memory.poke(memAddress +1, 124);
+      // do Memory.poke(memAddress +33, 124);
+      // do Memory.poke(memAddress +65, 124);
+      // do Memory.poke(memAddress +97, 124);
+      // do Memory.poke(memAddress +129, 124);
+      // do Memory.poke(memAddress +161, 124);
+      // do Memory.poke(memAddress +193, 124);
+      // do Memory.poke(memAddress +225, 124);
+      // do Memory.poke(memAddress +257, 124);
+      // do Memory.poke(memAddress +289, 124);
+      // do Memory.poke(memAddress +321, 124);
+      // do Memory.poke(memAddress +353, 124);
+      return;
+   }
+   method void deleteSprite(){
+      var int res,line, i, memAddress; 
+      let memAddress = 16384+screenLoc;
+      let i = 0;
+      while(i<LENGTH){
+         let line =Math.multiply(32,i);
+         do Helpers.safeScreenPoke(memAddress +line, 0);
+         let i=i+1;
+      }
       return;
    }
 
    method void delete() {
-      do Screen.setColor(false);
-      do Screen.drawRectangle(x, y, x + size, y + size);
+      do deleteSprite();
       do dispose();
       return;
    }
 
-   method int getX(){
-      return x;
-   }
-   method int getY(){
-      return y;
-   }
+
 
    method int move() {
-      if (y > 1) {
-         do Screen.setColor(false);
-         do Screen.drawRectangle(x, (y + size) - 1, x + size, y + size);
-         let y = y - 2;
-         do Screen.setColor(true);
-         do Screen.drawRectangle(x, y, x + size, y + 1);
-         do Sys.wait(1);  
+      if(currentDelayCycle=animationDelayCycles){
+         let currentDelayCycle = 0;
+         let screenLoc = screenLoc+32;
          return 1;
       }
+      else{
+         let currentDelayCycle = currentDelayCycle+1;
+         return 1;
+      }  
+
       return 0;
      
    }

@@ -4,14 +4,21 @@ class Enemy {
    field int screenLoc;
    field int size; 
    static int MOVEMENT;
-   static int numOfEnemies;
-   field Array enemies;
-   field int enemiesCount;
-   constructor Enemy new(int _screenLoc) {
-      let screenLoc =_screenLoc;
-      let MOVEMENT = 2; 
-      do draw();
+   static int animationDelayCycles;
+   static int currentDelayCycle;
+   constructor Enemy new(int screenLoc) {
+      let screenLoc =screenLoc;
+      let MOVEMENT = 1; 
+      let animationDelayCycles = 1000;
+      let currentDelayCycle = 0;
       return this;
+   }
+   
+   function int mod32(int num){
+      var int mo;
+      // 0 0 0... 0 0 1 1 1
+      let mo =32-1;
+      return mo&num;
    }
 
 
@@ -20,90 +27,139 @@ class Enemy {
       do Memory.deAlloc(this);
       return;
    }
+   method void deleteSprite(){
+      var int memAddress;
+      let memAddress = 16384 + screenLoc;
+      do Helpers.safeScreenPoke(memAddress, 0);
+      do Helpers.safeScreenPoke(memAddress + 32, 0);
+      do Helpers.safeScreenPoke(memAddress + 64, 0);
+      do Helpers.safeScreenPoke(memAddress + 96, 0);
+      do Helpers.safeScreenPoke(memAddress + 128, 0);
+      do Helpers.safeScreenPoke(memAddress + 160, 0);
+      do Helpers.safeScreenPoke(memAddress + 192, 0);
+      do Helpers.safeScreenPoke(memAddress + 224, 0);
+      do Helpers.safeScreenPoke(memAddress + 256, 0);
+      do Helpers.safeScreenPoke(memAddress + 288, 0);
+      do Helpers.safeScreenPoke(memAddress + 320, 0);
+      do Helpers.safeScreenPoke(memAddress + 352, 0);
+      do Helpers.safeScreenPoke(memAddress + 384, 0);
+      do Helpers.safeScreenPoke(memAddress + 416, 0);
+      do Helpers.safeScreenPoke(memAddress + 448, 0);
+      do Helpers.safeScreenPoke(memAddress + 480, 0);
+      do Helpers.safeScreenPoke(memAddress + 512, 0);
+      do Helpers.safeScreenPoke(memAddress + 544, 0);
+      do Helpers.safeScreenPoke(memAddress + 576, 0);
+      do Helpers.safeScreenPoke(memAddress + 608, 0);
+      do Helpers.safeScreenPoke(memAddress + 640, 0);
+      do Helpers.safeScreenPoke(memAddress + 672, 0);
+      do Helpers.safeScreenPoke(memAddress + 704, 0);
+      do Helpers.safeScreenPoke(memAddress + 736, 0);
+      do Helpers.safeScreenPoke(memAddress + 768, 0);
+      do Helpers.safeScreenPoke(memAddress + 800, 0);
+      // column 1
+      do Helpers.safeScreenPoke(memAddress + 1, 0);
+      do Helpers.safeScreenPoke(memAddress + 33, 0);
+      do Helpers.safeScreenPoke(memAddress + 65, 0);
+      do Helpers.safeScreenPoke(memAddress + 97, 0);
+      do Helpers.safeScreenPoke(memAddress + 129, 0);
+      do Helpers.safeScreenPoke(memAddress + 161, 0);
+      do Helpers.safeScreenPoke(memAddress + 193, 0);
+      do Helpers.safeScreenPoke(memAddress + 225, 0);
+      do Helpers.safeScreenPoke(memAddress + 257, 0);
+      do Helpers.safeScreenPoke(memAddress + 289, 0);
+      do Helpers.safeScreenPoke(memAddress + 321, 0);
+      do Helpers.safeScreenPoke(memAddress + 353, 0);
+      do Helpers.safeScreenPoke(memAddress + 385, 0);
+      do Helpers.safeScreenPoke(memAddress + 417, 0);
+      do Helpers.safeScreenPoke(memAddress + 449, 0);
+      do Helpers.safeScreenPoke(memAddress + 481, 0);
+      do Helpers.safeScreenPoke(memAddress + 513, 0);
+      do Helpers.safeScreenPoke(memAddress + 545, 0);
+      do Helpers.safeScreenPoke(memAddress + 577, 0);
+      do Helpers.safeScreenPoke(memAddress + 609, 0);
+      do Helpers.safeScreenPoke(memAddress + 641, 0);
+      do Helpers.safeScreenPoke(memAddress + 673, 0);
+      do Helpers.safeScreenPoke(memAddress + 705, 0);
+      return;
+   }
 
-    function void spawnEnemies(int number){
-        let numOfEnemies = numOfEnemies  +number;
-        
-        
-    }
 
    method void draw() {
-      do Screen.setColor(true);
-      let memAddress = 16384+screenLoc;
-      // column 0
-      do Memory.poke(memAddress, -32738);
-      do Memory.poke(memAddress +32, -16334);
-      do Memory.poke(memAddress +64, 16418);
-      do Memory.poke(memAddress +96, 32742);
-      do Memory.poke(memAddress +128, 1);
-      do Memory.poke(memAddress +160, -32747);
-      do Memory.poke(memAddress +192, -32739);
-      do Memory.poke(memAddress +224, 1);
-      do Memory.poke(memAddress +256, 8161);
-      do Memory.poke(memAddress +288, 8161);
-      do Memory.poke(memAddress +320, 1);
-      do Memory.poke(memAddress +352, 1);
-      do Memory.poke(memAddress +384, 4353);
-      do Memory.poke(memAddress +416, 3587);
-      do Memory.poke(memAddress +448, 4356);
-      do Memory.poke(memAddress +480, -32740);
-      do Memory.poke(memAddress +512, 16416);
-      do Memory.poke(memAddress +544, 20256);
-      do Memory.poke(memAddress +576, 28896);
-      do Memory.poke(memAddress +608, 0);
-      do Memory.poke(memAddress +640, 0);
-      do Memory.poke(memAddress +672, 0);
-      do Memory.poke(memAddress +704, 0);
-      do Memory.poke(memAddress +736, 0);
-      do Memory.poke(memAddress +768, 0);
-      do Memory.poke(memAddress +800, 0);
+      var int memAddress;
+      let memAddress = 16384 + screenLoc;
+      do Helpers.safeScreenPoke(memAddress, -32738);
+      do Helpers.safeScreenPoke(memAddress +32, -16334);
+      do Helpers.safeScreenPoke(memAddress +64, 16418);
+      do Helpers.safeScreenPoke(memAddress +96, 32742);
+      do Helpers.safeScreenPoke(memAddress +128, 1);
+      do Helpers.safeScreenPoke(memAddress +160, -32747);
+      do Helpers.safeScreenPoke(memAddress +192, -32739);
+      do Helpers.safeScreenPoke(memAddress +224, 1);
+      do Helpers.safeScreenPoke(memAddress +256, 8161);
+      do Helpers.safeScreenPoke(memAddress +288, 8161);
+      do Helpers.safeScreenPoke(memAddress +320, 1);
+      do Helpers.safeScreenPoke(memAddress +352, 1);
+      do Helpers.safeScreenPoke(memAddress +384, 4353);
+      do Helpers.safeScreenPoke(memAddress +416, 3587);
+      do Helpers.safeScreenPoke(memAddress +448, 4356);
+      do Helpers.safeScreenPoke(memAddress +480, -32740);
+      do Helpers.safeScreenPoke(memAddress +512, 16416);
+      do Helpers.safeScreenPoke(memAddress +544, 20256);
+      do Helpers.safeScreenPoke(memAddress +576, 28896);
       // column 1
-      do Memory.poke(memAddress +1, 7);
-      do Memory.poke(memAddress +33, 4);
-      do Memory.poke(memAddress +65, 4);
-      do Memory.poke(memAddress +97, 6);
-      do Memory.poke(memAddress +129, 8);
-      do Memory.poke(memAddress +161, 10);
-      do Memory.poke(memAddress +193, 11);
-      do Memory.poke(memAddress +225, 8);
-      do Memory.poke(memAddress +257, 8);
-      do Memory.poke(memAddress +289, 8);
-      do Memory.poke(memAddress +321, 8);
-      do Memory.poke(memAddress +353, 8);
-      do Memory.poke(memAddress +385, 8);
-      do Memory.poke(memAddress +417, 12);
-      do Memory.poke(memAddress +449, 2);
-      do Memory.poke(memAddress +481, 3);
-      do Memory.poke(memAddress +513, 0);
-      do Memory.poke(memAddress +545, 0);
-      do Memory.poke(memAddress +577, 0);
-      do Memory.poke(memAddress +609, 0);
-      do Memory.poke(memAddress +641, 0);
-      do Memory.poke(memAddress +673, 0);
-      do Memory.poke(memAddress +705, 0);
+      do Helpers.safeScreenPoke(memAddress +1, 7);
+      do Helpers.safeScreenPoke(memAddress +33, 4);
+      do Helpers.safeScreenPoke(memAddress +65, 4);
+      do Helpers.safeScreenPoke(memAddress +97, 6);
+      do Helpers.safeScreenPoke(memAddress +129, 8);
+      do Helpers.safeScreenPoke(memAddress +161, 10);
+      do Helpers.safeScreenPoke(memAddress +193, 11);
+      do Helpers.safeScreenPoke(memAddress +225, 8);
+      do Helpers.safeScreenPoke(memAddress +257, 8);
+      do Helpers.safeScreenPoke(memAddress +289, 8);
+      do Helpers.safeScreenPoke(memAddress +321, 8);
+      do Helpers.safeScreenPoke(memAddress +353, 8);
+      do Helpers.safeScreenPoke(memAddress +385, 8);
+      do Helpers.safeScreenPoke(memAddress +417, 12);
+      do Helpers.safeScreenPoke(memAddress +449, 2);
+      do Helpers.safeScreenPoke(memAddress +481, 3);
+
       return;
    }
 
    method void delete() {
-      do Screen.setColor(false);
-      do Screen.drawRectangle(x, y, x + size, y + size);
+      do deleteSprite();
       do dispose();
       return;
    }
 
-   method int getX(){
-      return x;
-   }
-   method int getY(){
-      return y;
-   }
+
 
    method int move() {
-      var int line;
-      let line = Math.divide(screenLoc,32);
-      if (line>10) { //player
-         screenLoc = screenLoc +20;
-         do Sys.wait(1);  
+      var int memAddress,mod32res;
+   
+      if(currentDelayCycle=animationDelayCycles){
+         let currentDelayCycle = 0;
+         let memAddress = 16384+screenLoc;
+         let mod32res = Enemy.mod32(memAddress);
+         if(mod32res<1){ //end of line
+            do Output.printInt(memAddress);
+            let screenLoc = screenLoc +32;
+         }
+         else{
+            let screenLoc = screenLoc +MOVEMENT;
+         }
+         if(screenLoc>23934){
+            do deleteSprite();
+            do dispose();
+            return 0;
+         }
+         do deleteSprite();
+         do draw();
+         return 1;
+      }
+      else{
+         let currentDelayCycle = currentDelayCycle+1;
          return 1;
       }
       return 0;

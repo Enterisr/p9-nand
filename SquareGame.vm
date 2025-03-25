@@ -1,9 +1,11 @@
 function SquareGame.new 0
-    push constant 4
+    push constant 5
     call Memory.alloc 1
     pop pointer 0
+    call EnemyHandler.new 0
+    pop this 4
     push constant 480
-    push constant 220
+    push constant 200
     push constant 20
     call Square.new 3
     pop this 0
@@ -215,6 +217,45 @@ label SquareGame_10
 label SquareGame_9
     push constant 0
     return
+function SquareGame.drawBase 3
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 2
+    push constant 23934
+    pop local 1
+label SquareGame_12
+    push local 2
+    push constant 224
+    lt
+    not
+    if-goto SquareGame_13
+    push local 1
+    push local 2
+    add
+    push constant 1
+    neg
+    call Memory.poke 2
+    pop temp 0
+    push local 2
+    push constant 1
+    add
+    pop local 2
+    goto SquareGame_12
+label SquareGame_13
+    push constant 0
+    return
+function SquareGame.drawScene 0
+    push argument 0
+    pop pointer 0
+    push this 4
+    call EnemyHandler.drawEnemies 1
+    pop temp 0
+    push pointer 0
+    call SquareGame.drawBullets 1
+    pop temp 0
+    push constant 0
+    return
 function SquareGame.run 3
     push argument 0
     pop pointer 0
@@ -222,19 +263,26 @@ function SquareGame.run 3
     pop local 1
     push constant 0
     pop local 2
-label SquareGame_12
+    push this 4
+    push constant 1
+    call EnemyHandler.spawnEnemies 2
+    pop temp 0
+    push pointer 0
+    call SquareGame.drawBase 1
+    pop temp 0
+label SquareGame_14
     push local 1
     not
     not
-    if-goto SquareGame_13
-label SquareGame_14
+    if-goto SquareGame_15
+label SquareGame_16
     push local 0
     push constant 0
     eq
     not
-    if-goto SquareGame_15
+    if-goto SquareGame_17
     push pointer 0
-    call SquareGame.drawBullets 1
+    call SquareGame.drawScene 1
     pop temp 0
     call Keyboard.keyPressed 0
     pop local 0
@@ -242,59 +290,59 @@ label SquareGame_14
     pop this 1
     push constant 0
     pop local 2
-    goto SquareGame_14
-label SquareGame_15
+    goto SquareGame_16
+label SquareGame_17
     push local 0
     push constant 81
     eq
     not
-    if-goto SquareGame_17
+    if-goto SquareGame_19
     push constant 1
     neg
     pop local 1
-    goto SquareGame_16
-label SquareGame_17
-label SquareGame_16
-    push local 0
-    push constant 130
-    eq
-    not
-    if-goto SquareGame_19
-    push constant 3
-    pop this 1
     goto SquareGame_18
 label SquareGame_19
 label SquareGame_18
     push local 0
-    push constant 132
+    push constant 130
     eq
     not
     if-goto SquareGame_21
-    push constant 4
+    push constant 3
     pop this 1
     goto SquareGame_20
 label SquareGame_21
 label SquareGame_20
     push local 0
-    push constant 32
+    push constant 132
     eq
     not
     if-goto SquareGame_23
-    push constant 1
-    neg
-    pop local 2
+    push constant 4
+    pop this 1
     goto SquareGame_22
 label SquareGame_23
 label SquareGame_22
+    push local 0
+    push constant 32
+    eq
+    not
+    if-goto SquareGame_25
+    push constant 1
+    neg
+    pop local 2
+    goto SquareGame_24
+label SquareGame_25
 label SquareGame_24
+label SquareGame_26
     push local 0
     push constant 0
     eq
     not
     not
-    if-goto SquareGame_25
+    if-goto SquareGame_27
     push pointer 0
-    call SquareGame.drawBullets 1
+    call SquareGame.drawScene 1
     pop temp 0
     call Keyboard.keyPressed 0
     pop local 0
@@ -303,7 +351,7 @@ label SquareGame_24
     pop temp 0
     push local 2
     not
-    if-goto SquareGame_27
+    if-goto SquareGame_29
     push constant 0
     pop local 2
     push pointer 0
@@ -313,12 +361,12 @@ label SquareGame_24
     call Square.getY 1
     call SquareGame.spawnBullet 3
     pop temp 0
+    goto SquareGame_28
+label SquareGame_29
+label SquareGame_28
     goto SquareGame_26
 label SquareGame_27
-label SquareGame_26
-    goto SquareGame_24
-label SquareGame_25
-    goto SquareGame_12
-label SquareGame_13
+    goto SquareGame_14
+label SquareGame_15
     push constant 0
     return
