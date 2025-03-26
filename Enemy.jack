@@ -13,14 +13,6 @@ class Enemy {
       let currentDelayCycle = 0;
       return this;
    }
-   
-   function int mod32(int num){
-      var int mo;
-      // 0 0 0... 0 0 1 1 1
-      let mo =32-1;
-      return mo&num;
-   }
-
 
 
    method void dispose() {
@@ -141,9 +133,9 @@ class Enemy {
       if(currentDelayCycle=animationDelayCycles){
          let currentDelayCycle = 0;
          let memAddress = 16384+screenLoc;
-         let mod32res = Enemy.mod32(memAddress);
+         let mod32res = Helpers.mod32(memAddress);
          if(mod32res<1){ //end of line
-            do Output.printInt(memAddress);
+           // do Output.printInt(memAddress);
             let screenLoc = screenLoc +32;
          }
          else{

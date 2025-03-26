@@ -1,18 +1,20 @@
 
-class SquareGame {
-   field Square square; // the square of this game
-   field int direction; // the square's current direction: 
+class RikoGame {
+   field Riko riko; 
+   field int direction; // the riko's current direction: 
                         // 0=none, 1=up, 2=down
    field Array bullets;
    field int bulletCount;
    field EnemyHandler enemyHandler;
+   
 
 
-
-   /** Constructs a new Square Game. */
-   constructor SquareGame new() {
+   /** Constructs a new Riko Game. */
+   constructor RikoGame new() {
+      var int rikoRowLocOffset,rikoInitialLoc;
       let enemyHandler = EnemyHandler.new();
-      let square = Square.new(480, 200, 20);
+      let rikoRowLocOffset = Math.multiply(32 ,3);
+      let riko = Riko.new(22934);
       let bullets = Array.new(3); //we dont want to overload the system
       let direction = 0;  // initial state is no movement
       let bulletCount = 0;     
@@ -21,16 +23,16 @@ class SquareGame {
 
    /** Disposes this game. */
    method void dispose() {
-      do square.dispose();
+      do riko.dispose();
       do Memory.deAlloc(this);
       return;
    }
 
-   /** Moves the square in the current direction. */
-   method void moveSquare() {
-      if (direction = 3) { do square.moveLeft(); }
-      if (direction = 4) { do square.moveRight(); }
-      do Sys.wait(1);  // delays the next movement
+   /** Moves the riko in the current direction. */
+   method void moveRiko() {
+      if (direction = 3) { do riko.moveLeft(); }
+      if (direction = 4) { do riko.moveRight(); }
+      do Sys.wait(200);  // delays the next movement
       return;
    }
    method void removeBullet(int idx){
@@ -47,11 +49,11 @@ class SquareGame {
       }
       return;
    }
-   method void spawnBullet(int playerX,int playerY) {
+   method void spawnBullet(int playerLoc) {
       var Bullet b;
       if(bulletCount<3)
       {   
-         let b = Bullet.new(playerX+10,playerY-7);
+         let b = Bullet.new(playerLoc);
          let bullets[bulletCount] = b;
          let bulletCount=bulletCount+1;
 
@@ -67,7 +69,7 @@ class SquareGame {
          let b = bullets[i];
          let res =  b.move();
          if(~res){
-            do Output.printString("removing bullet!");
+            // do Output.printString("removing bullet!");
             do removeBullet(i);
             let bulletCount = bulletCount -1;
          }
@@ -102,15 +104,17 @@ class SquareGame {
       return;
    }
 
-   /** Runs the game: handles the user's inputs and moves the square accordingly */
+   /** Runs the game: handles the user's inputs and moves the riko accordingly */
    method void run() {
       var char key;  // the key currently pressed by the user
       var boolean exit;
       var boolean toShoot;
       let exit = false;
       let toShoot = false;
-      do enemyHandler.spawnEnemies(1);
+   //   do enemyHandler.spawnEnemies(1);
       do drawBase();
+      do riko.draw();
+      do Output.printInt(riko.getMemLoc());
       while (~exit) {
 
          // waits for a key to be pressed
@@ -129,10 +133,10 @@ class SquareGame {
          while (~(key = 0)) {
             do drawScene();
             let key = Keyboard.keyPressed();
-            do moveSquare();
+            do moveRiko();
             if(toShoot){
                let toShoot = false;
-               do spawnBullet(square.getX(),square.getY());
+               do spawnBullet(riko.getMemLoc());
             } 
          }
      } // while

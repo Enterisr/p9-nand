@@ -1,4 +1,44 @@
 class Helpers{
+
+    function int getXFromMemoryLoc(int memoryLoc){
+        var int screenOffset;
+        var int x;
+        let screenOffset = memoryLoc - 16544;
+        let x = Helpers.mod32(screenOffset);
+        return x;
+    }   
+    function int getYFromMemoryLoc(int memoryLoc){
+        var int screenOffset;
+        var int y;
+        let screenOffset = memoryLoc - 16544;
+        let y = Math.divide(screenOffset,32);
+        return y;
+    }  
+    // function int coordsToMemLocation(int x,int y){
+    //     var int rowOffset,startRowLoc;
+    //     var int colOffset,startRowLoc;
+    //     let rowOffset = Math.multiply(x,32);
+    //     let colOffset = 
+    // }   
+    function int checkProximity(int obj1LocOnMemory,int obj2LocOnMemory, int sensativity){
+        //trying to simulate hitboxes
+        var int diff,absDiff;
+
+        let diff =  obj1LocOnMemory - obj2LocOnMemory;
+        let absDiff = Math.abs(diff);
+        if(absDiff<sensativity){
+            return 1;
+        }
+        return 0;
+    }   
+    
+    function int mod32(int num){
+      var int mo;
+      // 0 0 0... 0 0 1 1 1
+      let mo =32-1;
+      return mo&num;
+    }
+
     function void safeScreenPoke(int addr,int val){
       if(addr>0 )
       {

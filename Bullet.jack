@@ -5,9 +5,9 @@ class Bullet {
    static int LENGTH; 
    static int MOVEMENT;
    static int animationDelayCycles;
-   field int currentDelayCycle;
-   constructor Bullet new() {
-      let screenLoc = -1;
+   field int currentDelayCycle; 
+   constructor Bullet new(int playerMemLoc) {
+      let screenLoc = playerMemLoc+32;
       let MOVEMENT = 2;
       let LENGTH = 10;
       let animationDelayCycles = 100;
@@ -31,20 +31,6 @@ class Bullet {
          do  Helpers.safeScreenPoke(memAddress +line, 124);
          let i=i+1;
       }
-      // // column 0
-      // // column 1
-      // do Memory.poke(memAddress +1, 124);
-      // do Memory.poke(memAddress +33, 124);
-      // do Memory.poke(memAddress +65, 124);
-      // do Memory.poke(memAddress +97, 124);
-      // do Memory.poke(memAddress +129, 124);
-      // do Memory.poke(memAddress +161, 124);
-      // do Memory.poke(memAddress +193, 124);
-      // do Memory.poke(memAddress +225, 124);
-      // do Memory.poke(memAddress +257, 124);
-      // do Memory.poke(memAddress +289, 124);
-      // do Memory.poke(memAddress +321, 124);
-      // do Memory.poke(memAddress +353, 124);
       return;
    }
    method void deleteSprite(){

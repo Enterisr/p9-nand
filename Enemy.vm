@@ -12,15 +12,6 @@ function Enemy.new 0
     pop static 2
     push pointer 0
     return
-function Enemy.mod32 1
-    push constant 32
-    push constant 1
-    sub
-    pop local 0
-    push local 0
-    push argument 0
-    and
-    return
 function Enemy.dispose 0
     push argument 0
     pop pointer 0
@@ -36,372 +27,298 @@ function Enemy.deleteSprite 1
     push this 0
     add
     pop local 0
-    push pointer 0
     push local 0
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 32
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 64
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 96
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 128
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 160
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 192
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 224
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 256
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 288
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 320
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 352
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 384
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 416
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 448
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 480
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 512
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 544
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 576
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 608
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 640
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 672
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 704
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 736
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 768
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 800
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 1
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 33
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 65
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 97
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 129
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 161
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 193
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 225
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 257
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 289
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 321
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 353
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 385
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 417
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 449
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 481
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 513
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 545
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 577
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 609
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 641
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 673
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 705
     add
     push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push constant 0
-    return
-function Enemy.safeScreenPoke 0
-    push argument 0
-    pop pointer 0
-    push argument 1
-    push constant 0
-    gt
-    not
-    if-goto Enemy_1
-    push argument 1
-    push constant 24605
-    lt
-    not
-    if-goto Enemy_3
-    push argument 1
-    push argument 2
-    call Memory.poke 2
-    pop temp 0
-    goto Enemy_2
-label Enemy_3
-label Enemy_2
-    goto Enemy_0
-label Enemy_1
-label Enemy_0
     push constant 0
     return
 function Enemy.draw 1
@@ -411,351 +328,218 @@ function Enemy.draw 1
     push this 0
     add
     pop local 0
-    push pointer 0
     push local 0
     push constant 32738
     neg
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 32
     add
     push constant 16334
     neg
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 64
     add
     push constant 16418
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 96
     add
     push constant 32742
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 128
     add
     push constant 1
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 160
     add
     push constant 32747
     neg
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 192
     add
     push constant 32739
     neg
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 224
     add
     push constant 1
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 256
     add
     push constant 8161
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 288
     add
     push constant 8161
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 320
     add
     push constant 1
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 352
     add
     push constant 1
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 384
     add
     push constant 4353
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 416
     add
     push constant 3587
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 448
     add
     push constant 4356
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 480
     add
     push constant 32740
     neg
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 512
     add
     push constant 16416
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 544
     add
     push constant 20256
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 576
     add
     push constant 28896
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
-    push local 0
-    push constant 608
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 640
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 672
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 704
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 736
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 768
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 800
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
     push local 0
     push constant 1
     add
     push constant 7
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 33
     add
     push constant 4
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 65
     add
     push constant 4
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 97
     add
     push constant 6
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 129
     add
     push constant 8
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 161
     add
     push constant 10
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 193
     add
     push constant 11
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 225
     add
     push constant 8
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 257
     add
     push constant 8
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 289
     add
     push constant 8
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 321
     add
     push constant 8
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 353
     add
     push constant 8
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 385
     add
     push constant 8
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 417
     add
     push constant 12
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 449
     add
     push constant 2
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
-    push pointer 0
     push local 0
     push constant 481
     add
     push constant 3
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 513
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 545
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 577
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 609
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 641
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 673
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
-    pop temp 0
-    push pointer 0
-    push local 0
-    push constant 705
-    add
-    push constant 0
-    call Enemy.safeScreenPoke 3
+    call Helpers.safeScreenPoke 2
     pop temp 0
     push constant 0
     return
@@ -777,7 +561,7 @@ function Enemy.move 2
     push static 1
     eq
     not
-    if-goto Enemy_5
+    if-goto Enemy_1
     push constant 0
     pop static 2
     push constant 16384
@@ -785,27 +569,40 @@ function Enemy.move 2
     add
     pop local 0
     push local 0
-    call Enemy.mod32 1
+    call Helpers.mod32 1
     pop local 1
     push local 1
     push constant 1
     lt
     not
-    if-goto Enemy_7
-    push local 0
-    call Output.printInt 1
-    pop temp 0
+    if-goto Enemy_3
     push this 0
     push constant 32
     add
     pop this 0
-    goto Enemy_6
-label Enemy_7
+    goto Enemy_2
+label Enemy_3
     push this 0
     push static 0
     add
     pop this 0
-label Enemy_6
+label Enemy_2
+    push this 0
+    push constant 23934
+    gt
+    not
+    if-goto Enemy_5
+    push pointer 0
+    call Enemy.deleteSprite 1
+    pop temp 0
+    push pointer 0
+    call Enemy.dispose 1
+    pop temp 0
+    push constant 0
+    return
+    goto Enemy_4
+label Enemy_5
+label Enemy_4
     push pointer 0
     call Enemy.deleteSprite 1
     pop temp 0
@@ -814,12 +611,14 @@ label Enemy_6
     pop temp 0
     push constant 1
     return
-    goto Enemy_4
-label Enemy_5
+    goto Enemy_0
+label Enemy_1
     push static 2
     push constant 1
     add
     pop static 2
-label Enemy_4
+    push constant 1
+    return
+label Enemy_0
     push constant 0
     return

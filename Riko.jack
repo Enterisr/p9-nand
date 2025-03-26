@@ -1,0 +1,197 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/09/Square/Square.jack
+
+/** Implements a graphical square. */
+class Riko {
+
+   field int memLoc;
+   field int size; 
+   static int MOVEMENT;
+
+   constructor Riko new(int memLocArg) {
+
+      let memLoc = 22934;
+      let MOVEMENT = 2; 
+      let size = 20;
+      return this;
+   }
+
+   /** Disposes this square. */
+   method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+   }
+   method int getMemLoc(){
+      return memLoc;
+   }
+
+   /** Draws the square on the screen. */
+   method void draw() {
+      var int loc;
+      let loc =memLoc;
+      // column 0
+      do Helpers.safeScreenPoke(loc, 4095);
+      do Helpers.safeScreenPoke(loc +32, 3584);
+      do Helpers.safeScreenPoke(loc +64, 3686);
+      do Helpers.safeScreenPoke(loc +96, 3686);
+      do Helpers.safeScreenPoke(loc +128, 512);
+      do Helpers.safeScreenPoke(loc +160, 512);
+      do Helpers.safeScreenPoke(loc +192, -504);
+      do Helpers.safeScreenPoke(loc +224, 512);
+      do Helpers.safeScreenPoke(loc +256, 546);
+      do Helpers.safeScreenPoke(loc +288, 958);
+      do Helpers.safeScreenPoke(loc +320, 193);
+      do Helpers.safeScreenPoke(loc +352, 62);
+      do Helpers.safeScreenPoke(loc +384, 32);
+      do Helpers.safeScreenPoke(loc +416, 32);
+      do Helpers.safeScreenPoke(loc +448, 32);
+      do Helpers.safeScreenPoke(loc +480, 32);
+      do Helpers.safeScreenPoke(loc +512, 32);
+      do Helpers.safeScreenPoke(loc +544, 32);
+      do Helpers.safeScreenPoke(loc +576, 96);
+      do Helpers.safeScreenPoke(loc +608, 96);
+      do Helpers.safeScreenPoke(loc +640, 28768);
+      do Helpers.safeScreenPoke(loc +672, -30624);
+      do Helpers.safeScreenPoke(loc +704, -29600);
+      do Helpers.safeScreenPoke(loc +736, -31136);
+      do Helpers.safeScreenPoke(loc +768, -31776);
+      // column 1
+      do Helpers.safeScreenPoke(loc +193, 15);
+      do Helpers.safeScreenPoke(loc +225, 24);
+      do Helpers.safeScreenPoke(loc +257, 2032);
+      do Helpers.safeScreenPoke(loc +289, 8064);
+      do Helpers.safeScreenPoke(loc +321, 32128);
+      do Helpers.safeScreenPoke(loc +353, 29056);
+      do Helpers.safeScreenPoke(loc +385, -15616);
+      do Helpers.safeScreenPoke(loc +417, -12800);
+      do Helpers.safeScreenPoke(loc +449, -26624);
+      do Helpers.safeScreenPoke(loc +481, 4096);
+      do Helpers.safeScreenPoke(loc +513, 4096);
+      do Helpers.safeScreenPoke(loc +545, 4096);
+      do Helpers.safeScreenPoke(loc +577, 4096);
+      do Helpers.safeScreenPoke(loc +609, 4096);
+      do Helpers.safeScreenPoke(loc +641, 4096);
+      do Helpers.safeScreenPoke(loc +673, 7168);
+      do Helpers.safeScreenPoke(loc +705, 1792);
+      do Helpers.safeScreenPoke(loc +737, 480);
+      do Helpers.safeScreenPoke(loc +769, 63);
+      // column 2
+      do Helpers.safeScreenPoke(loc +386, 1);
+      do Helpers.safeScreenPoke(loc +418, 3);
+      do Helpers.safeScreenPoke(loc +450, 7);
+      do Helpers.safeScreenPoke(loc +482, 15);
+      do Helpers.safeScreenPoke(loc +514, 14);
+      // column -1
+      do Helpers.safeScreenPoke(loc -1, -8192);
+      do Helpers.safeScreenPoke(loc +31, 24576);
+      do Helpers.safeScreenPoke(loc +63, 24576);
+      do Helpers.safeScreenPoke(loc +95, 24576);
+      do Helpers.safeScreenPoke(loc +127, 16384);
+      do Helpers.safeScreenPoke(loc +159, -16384);
+      do Helpers.safeScreenPoke(loc +191, ~32767);
+      do Helpers.safeScreenPoke(loc +223, ~32767);
+      do Helpers.safeScreenPoke(loc +255, ~32767);
+      do Helpers.safeScreenPoke(loc +287, ~32767);
+      do Helpers.safeScreenPoke(loc +319, ~32767);
+
+      return;
+   }
+
+   /** Erases the square from the screen. */
+   method void erase() {
+         // column 0
+      var int loc;
+      let loc =memLoc;
+      do Helpers.safeScreenPoke(loc, 0);
+      do Helpers.safeScreenPoke(loc +32, 0);
+      do Helpers.safeScreenPoke(loc +64, 0);
+      do Helpers.safeScreenPoke(loc +96, 0);
+      do Helpers.safeScreenPoke(loc +128, 0);
+      do Helpers.safeScreenPoke(loc +160, 0);
+      do Helpers.safeScreenPoke(loc +192, 0);
+      do Helpers.safeScreenPoke(loc +224, 0);
+      do Helpers.safeScreenPoke(loc +256, 0);
+      do Helpers.safeScreenPoke(loc +288, 0);
+      do Helpers.safeScreenPoke(loc +320, 0);
+      do Helpers.safeScreenPoke(loc +352, 0);
+      do Helpers.safeScreenPoke(loc +384, 0);
+      do Helpers.safeScreenPoke(loc +416, 0);
+      do Helpers.safeScreenPoke(loc +448, 0);
+      do Helpers.safeScreenPoke(loc +480, 0);
+      do Helpers.safeScreenPoke(loc +512, 0);
+      do Helpers.safeScreenPoke(loc +544, 0);
+      do Helpers.safeScreenPoke(loc +576, 0);
+      do Helpers.safeScreenPoke(loc +608, 0);
+      do Helpers.safeScreenPoke(loc +640, 0);
+      do Helpers.safeScreenPoke(loc +672, 0);
+      do Helpers.safeScreenPoke(loc +704, 0);
+      do Helpers.safeScreenPoke(loc +736, 0);
+      do Helpers.safeScreenPoke(loc +768, 0);
+      // column 1
+      do Helpers.safeScreenPoke(loc +193, 0);
+      do Helpers.safeScreenPoke(loc +225, 0);
+      do Helpers.safeScreenPoke(loc +257, 0);
+      do Helpers.safeScreenPoke(loc +289, 0);
+      do Helpers.safeScreenPoke(loc +321, 0);
+      do Helpers.safeScreenPoke(loc +353, 0);
+      do Helpers.safeScreenPoke(loc +385, 0);
+      do Helpers.safeScreenPoke(loc +417, 0);
+      do Helpers.safeScreenPoke(loc +449, 0);
+      do Helpers.safeScreenPoke(loc +481, 0);
+      do Helpers.safeScreenPoke(loc +513, 0);
+      do Helpers.safeScreenPoke(loc +545, 0);
+      do Helpers.safeScreenPoke(loc +577, 0);
+      do Helpers.safeScreenPoke(loc +609, 0);
+      do Helpers.safeScreenPoke(loc +641, 0);
+      do Helpers.safeScreenPoke(loc +673, 0);
+      do Helpers.safeScreenPoke(loc +705, 0);
+      do Helpers.safeScreenPoke(loc +737, 0);
+      do Helpers.safeScreenPoke(loc +769, 0);
+      // column 2
+      do Helpers.safeScreenPoke(loc +386, 0);
+      do Helpers.safeScreenPoke(loc +418, 0);
+      do Helpers.safeScreenPoke(loc +450, 0);
+      do Helpers.safeScreenPoke(loc +482, 0);
+      do Helpers.safeScreenPoke(loc +514, 0);
+      // column -1
+      do Helpers.safeScreenPoke(loc -1, 0);
+      do Helpers.safeScreenPoke(loc +31, 0);
+      do Helpers.safeScreenPoke(loc +63, 0);
+      do Helpers.safeScreenPoke(loc +95, 0);
+      do Helpers.safeScreenPoke(loc +127, 0);
+      do Helpers.safeScreenPoke(loc +159, 0);
+      do Helpers.safeScreenPoke(loc +191, 0);
+      do Helpers.safeScreenPoke(loc +223, 0);
+      do Helpers.safeScreenPoke(loc +255, 0);
+      do Helpers.safeScreenPoke(loc +287, 0);
+      do Helpers.safeScreenPoke(loc +319, 0);
+      return;
+   }
+
+
+     method void moveLeft() {
+      var int x;
+            do erase();
+      let x = Helpers.getXFromMemoryLoc(memLoc);
+      if (x > 1) {
+         let memLoc  = memLoc-MOVEMENT;
+      }
+      do  draw();
+      return;
+   }
+
+   method void moveRight() {
+      var int x,y;
+      do erase();
+      let x = Helpers.getXFromMemoryLoc(memLoc);
+      
+      if ((x + size) < 510) {
+         let memLoc  = memLoc+MOVEMENT;
+      }
+
+      do draw();
+      return;
+   }
+}
