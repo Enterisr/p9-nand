@@ -7,10 +7,10 @@ class Bullet {
    static int animationDelayCycles;
    field int currentDelayCycle; 
    constructor Bullet new(int playerMemLoc) {
-      let screenLoc = playerMemLoc+32;
-      let MOVEMENT = 2;
+      let screenLoc = playerMemLoc-320;
+      let MOVEMENT =128;
       let LENGTH = 10;
-      let animationDelayCycles = 100;
+      let animationDelayCycles =150;
       let currentDelayCycle = 0;
       do draw();
       return this;
@@ -24,7 +24,7 @@ class Bullet {
 
    method void draw() {
       var int line, i, memAddress; 
-      let memAddress = 16384+screenLoc;
+      let memAddress =screenLoc;
       let i = 0;
       while(i<LENGTH){
          let line =Math.multiply(32,i);
@@ -35,7 +35,7 @@ class Bullet {
    }
    method void deleteSprite(){
       var int res,line, i, memAddress; 
-      let memAddress = 16384+screenLoc;
+      let memAddress = screenLoc;
       let i = 0;
       while(i<LENGTH){
          let line =Math.multiply(32,i);
@@ -54,9 +54,15 @@ class Bullet {
 
 
    method int move() {
+      
       if(currentDelayCycle=animationDelayCycles){
+         do deleteSprite();
          let currentDelayCycle = 0;
-         let screenLoc = screenLoc+32;
+         let screenLoc = screenLoc-MOVEMENT;
+         if(screenLoc<16000){
+            return 0;
+         }
+         do draw();
          return 1;
       }
       else{

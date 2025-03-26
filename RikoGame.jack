@@ -11,12 +11,10 @@ class RikoGame {
 
    /** Constructs a new Riko Game. */
    constructor RikoGame new() {
-      var int rikoRowLocOffset,rikoInitialLoc;
       let enemyHandler = EnemyHandler.new();
-      let rikoRowLocOffset = Math.multiply(32 ,3);
       let riko = Riko.new(22934);
-      let bullets = Array.new(3); //we dont want to overload the system
-      let direction = 0;  // initial state is no movement
+      let bullets = Array.new(5);
+      let direction = 0; 
       let bulletCount = 0;     
       return this;
    }
@@ -32,7 +30,6 @@ class RikoGame {
    method void moveRiko() {
       if (direction = 3) { do riko.moveLeft(); }
       if (direction = 4) { do riko.moveRight(); }
-      do Sys.wait(200);  // delays the next movement
       return;
    }
    method void removeBullet(int idx){
@@ -51,8 +48,10 @@ class RikoGame {
    }
    method void spawnBullet(int playerLoc) {
       var Bullet b;
-      if(bulletCount<3)
+      if(bulletCount<5)
       {   
+         do Output.printString("spawn BULLET");
+         do Output.printInt(playerLoc);
          let b = Bullet.new(playerLoc);
          let bullets[bulletCount] = b;
          let bulletCount=bulletCount+1;
@@ -111,13 +110,12 @@ class RikoGame {
       var boolean toShoot;
       let exit = false;
       let toShoot = false;
-   //   do enemyHandler.spawnEnemies(1);
+      do enemyHandler.spawnEnemies(1);
       do drawBase();
       do riko.draw();
-      do Output.printInt(riko.getMemLoc());
+     // do Output.printInt(riko.getMemLoc());
       while (~exit) {
 
-         // waits for a key to be pressed
          while (key = 0) {         
             do drawScene();
             let key = Keyboard.keyPressed();
@@ -129,7 +127,6 @@ class RikoGame {
          if (key = 132) { let direction = 4; }   // right arrow
          if (key = 32)  { let toShoot = true; } //shoot
 
-         // waits for the key to be released
          while (~(key = 0)) {
             do drawScene();
             let key = Keyboard.keyPressed();

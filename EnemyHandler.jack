@@ -6,10 +6,14 @@ class EnemyHandler {
    field int enemiesCount;
    field int startScreenLoc;
    static int MAX_ENEMIES;
+   field boolean movedDownLastTime;
+   field boolean movingDirection;
    constructor EnemyHandler new() {
-      let startScreenLoc =100;
+      let startScreenLoc =16484;
       let MAX_ENEMIES = 20;
+      let movedDownLastTime = false;
       let enemiesCount = 0; 
+      let movingDirection = 1;
       let enemies = Array.new(MAX_ENEMIES);
       return this;
    }
@@ -18,7 +22,20 @@ class EnemyHandler {
       do Memory.deAlloc(this);
       return;
    }
+   method void removeEnemy(int idx){
+      var int i;
+      var Enemy bTemp;
+      let bTemp =  enemies[i];
+      do bTemp.delete();
+      let i = idx+1;
 
+      while(enemiesCount>i ){
+        let bTemp =  enemies[i];
+        let enemies[i-1] = bTemp;
+        let i = i+1;
+      }
+      return;
+   }
     method void spawnEnemies(int num){
         var int i;
         var int memLocationShift;
@@ -46,17 +63,44 @@ class EnemyHandler {
         return;
     }
     method void drawEnemies(){
-        
-        var int i;
-        var Enemy enemyIt;
+        var boolean isEndLeft,isEndRight;
+        var int firstX,lastX,i,lastIdx;
+        var Enemy firstEnemy,lastEnemy,enemyIt;
+
         let i = 0;
+        let lastIdx = enemiesCount-1;
+        let firstEnemy = enemies[0];
+        let lastEnemy = enemies[lastIdx];
+        let firstX = Helpers.getXFromMemoryLoc(firstEnemy.);
+        let lastX = Helpers.getXFromMemoryLoc();
+        let isEndRight = lastX>30;
+        let isEndLeft = firstX<1;
+        let isEnd = isEndRight|isEndLeft;
+        if(isEnd){
+            if(~movedDownLastTime){
+           
+                let movedDownLastTime =true; 
+                let movingDirection = 0;
+            }
+        }
+        else{
+            let movedDownLastTime =false; 
+            if(isEndRight){
+                let movingDirection = -1;
+            }
+            if(isEndLeft){
+                let movingDirection = 1;
+            }
+        }
+        
         while(i<enemiesCount){
             let enemyIt = enemies[i]; 
-            do enemyIt.move();
+            do enemyIt.move(movingDirection);
             let i=i+1;
         }
         return;
-    }
+        }
+    
 
    method void delete() {
       do dispose();

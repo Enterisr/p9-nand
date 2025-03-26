@@ -3,14 +3,14 @@ function Bullet.new 0
     call Memory.alloc 1
     pop pointer 0
     push argument 0
-    push constant 32
-    add
+    push constant 256
+    sub
     pop this 0
-    push constant 2
+    push constant 128
     pop static 1
     push constant 10
     pop static 0
-    push constant 100
+    push constant 150
     pop static 2
     push constant 0
     pop this 1
@@ -30,9 +30,7 @@ function Bullet.dispose 0
 function Bullet.draw 3
     push argument 0
     pop pointer 0
-    push constant 16384
     push this 0
-    add
     pop local 2
     push constant 0
     pop local 1
@@ -63,9 +61,7 @@ label Bullet_1
 function Bullet.deleteSprite 4
     push argument 0
     pop pointer 0
-    push constant 16384
     push this 0
-    add
     pop local 3
     push constant 0
     pop local 2
@@ -112,12 +108,28 @@ function Bullet.move 0
     eq
     not
     if-goto Bullet_5
+    push pointer 0
+    call Bullet.deleteSprite 1
+    pop temp 0
     push constant 0
     pop this 1
     push this 0
-    push constant 32
-    add
+    push static 1
+    sub
     pop this 0
+    push this 0
+    push constant 16000
+    lt
+    not
+    if-goto Bullet_7
+    push constant 0
+    return
+    goto Bullet_6
+label Bullet_7
+label Bullet_6
+    push pointer 0
+    call Bullet.draw 1
+    pop temp 0
     push constant 1
     return
     goto Bullet_4

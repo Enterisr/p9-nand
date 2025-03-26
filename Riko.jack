@@ -9,12 +9,15 @@ class Riko {
    field int memLoc;
    field int size; 
    static int MOVEMENT;
-
+   static int MOVEMENT_DELAY;
+   field int current_cycle;
    constructor Riko new(int memLocArg) {
 
       let memLoc = 22934;
-      let MOVEMENT = 2; 
+      let MOVEMENT = 1; 
+      let MOVEMENT_DELAY = 300;
       let size = 20;
+      let current_cycle = 0;
       return this;
    }
 
@@ -173,25 +176,37 @@ class Riko {
 
      method void moveLeft() {
       var int x;
-            do erase();
-      let x = Helpers.getXFromMemoryLoc(memLoc);
-      if (x > 1) {
-         let memLoc  = memLoc-MOVEMENT;
+      if(current_cycle=MOVEMENT_DELAY){
+         let current_cycle = 0;
+         do erase();
+         let x = Helpers.getXFromMemoryLoc(memLoc);
+         if (x > 1) {
+            let memLoc  = memLoc-MOVEMENT;
+         }
+            do  draw();
+         }
+      else{
+         let current_cycle = current_cycle+1;
       }
-      do  draw();
+
       return;
    }
 
    method void moveRight() {
       var int x,y;
-      do erase();
-      let x = Helpers.getXFromMemoryLoc(memLoc);
-      
-      if ((x + size) < 510) {
-         let memLoc  = memLoc+MOVEMENT;
-      }
+      if(current_cycle=MOVEMENT_DELAY){
+         let current_cycle = 0;
+         do erase();
+         let x = Helpers.getXFromMemoryLoc(memLoc);
+         if (x < 30) {
+            let memLoc  = memLoc+MOVEMENT;
+         }
 
-      do draw();
+         do draw();
+      }
+         else{
+           let current_cycle = current_cycle+1;
+         }
       return;
    }
 }

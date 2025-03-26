@@ -21,7 +21,7 @@ class Enemy {
    }
    method void deleteSprite(){
       var int memAddress;
-      let memAddress = 16384 + screenLoc;
+      let memAddress =  screenLoc;
       do Helpers.safeScreenPoke(memAddress, 0);
       do Helpers.safeScreenPoke(memAddress + 32, 0);
       do Helpers.safeScreenPoke(memAddress + 64, 0);
@@ -78,7 +78,7 @@ class Enemy {
 
    method void draw() {
       var int memAddress;
-      let memAddress = 16384 + screenLoc;
+      let memAddress =screenLoc;
       do Helpers.safeScreenPoke(memAddress, -32738);
       do Helpers.safeScreenPoke(memAddress +32, -16334);
       do Helpers.safeScreenPoke(memAddress +64, 16418);
@@ -124,24 +124,30 @@ class Enemy {
       do dispose();
       return;
    }
+   method void getMemLoc() {
+      return 
+      return;
+   }
 
 
 
-   method int move() {
-      var int memAddress,mod32res;
-   
+   method int move(int direction) {
+      var int memAddress,mod32res,x,y;
+
       if(currentDelayCycle=animationDelayCycles){
          let currentDelayCycle = 0;
-         let memAddress = 16384+screenLoc;
-         let mod32res = Helpers.mod32(memAddress);
-         if(mod32res<1){ //end of line
-           // do Output.printInt(memAddress);
+         
+         if(direction=1){
+             let screenLoc = screenLoc +MOVEMENT;//RIGHT
+         }
+         if(direction=-1){
+             let screenLoc = screenLoc -MOVEMENT;//LEFT
+         }
+         if(direction = 0){
             let screenLoc = screenLoc +32;
          }
-         else{
-            let screenLoc = screenLoc +MOVEMENT;
-         }
-         if(screenLoc>23934){
+
+         if(screenLoc>2934){
             do deleteSprite();
             do dispose();
             return 0;
