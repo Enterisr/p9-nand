@@ -1,13 +1,22 @@
 function EnemyHandler.new 0
-    push constant 3
+    push constant 5
     call Memory.alloc 1
     pop pointer 0
-    push constant 100
+    push constant 17484
     pop this 2
     push constant 20
     pop static 0
+    push constant 10000
+    pop static 1
+    push constant 0
+    pop static 2
+    push constant 0
+    pop this 3
     push constant 0
     pop this 1
+    push constant 1
+    neg
+    pop this 4
     push static 0
     call Array.new 1
     pop this 0
@@ -21,6 +30,52 @@ function EnemyHandler.dispose 0
     pop temp 0
     push constant 0
     return
+function EnemyHandler.removeEnemy 2
+    push argument 0
+    pop pointer 0
+    push local 0
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 1
+    push local 1
+    call Enemy.delete 1
+    pop temp 0
+    push argument 1
+    push constant 1
+    add
+    pop local 0
+label EnemyHandler_0
+    push this 1
+    push local 0
+    gt
+    not
+    if-goto EnemyHandler_1
+    push local 0
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 1
+    push local 0
+    push constant 1
+    sub
+    push this 0
+    add
+    push local 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push local 0
+    push constant 1
+    add
+    pop local 0
+    goto EnemyHandler_0
+label EnemyHandler_1
+    push constant 0
+    return
 function EnemyHandler.spawnEnemies 5
     push argument 0
     pop pointer 0
@@ -30,35 +85,33 @@ function EnemyHandler.spawnEnemies 5
     push argument 1
     add
     pop local 3
+    push this 2
+    pop local 2
     push local 3
     push static 0
     gt
     not
-    if-goto EnemyHandler_1
+    if-goto EnemyHandler_3
     push constant 101
     call Sys.error 1
     pop temp 0
     push constant 0
     return
-    goto EnemyHandler_0
-label EnemyHandler_1
-label EnemyHandler_0
+    goto EnemyHandler_2
+label EnemyHandler_3
+label EnemyHandler_2
     push this 1
     push argument 1
     add
     pop this 1
-label EnemyHandler_2
+label EnemyHandler_4
     push local 0
     push argument 1
     lt
     not
-    if-goto EnemyHandler_3
+    if-goto EnemyHandler_5
     push local 2
-    push constant 2
-    add
-    pop local 1
-    push this 2
-    push local 1
+    push constant 3
     add
     pop local 2
     push local 2
@@ -79,36 +132,138 @@ label EnemyHandler_2
     push constant 1
     add
     pop local 0
-    goto EnemyHandler_2
-label EnemyHandler_3
+    goto EnemyHandler_4
+label EnemyHandler_5
     push constant 0
     return
-function EnemyHandler.drawEnemies 2
+function EnemyHandler.drawEnemies 11
     push argument 0
     pop pointer 0
-    push constant 0
-    pop local 0
-label EnemyHandler_4
-    push local 0
-    push this 1
-    lt
+    push static 2
+    push static 1
+    eq
     not
-    if-goto EnemyHandler_5
-    push local 0
+    if-goto EnemyHandler_7
+    push constant 0
+    pop static 2
+    push constant 0
+    pop local 5
+    push this 1
+    push constant 1
+    sub
+    pop local 6
+    push constant 0
     push this 0
     add
     pop pointer 1
     push that 0
+    pop local 8
+    push local 6
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 9
+    push local 8
+    call Enemy.getScreenLoc 1
+    call Helpers.getXFromMemoryLoc 1
+    pop local 3
+    push local 9
+    call Enemy.getScreenLoc 1
+    call Helpers.getXFromMemoryLoc 1
+    pop local 4
+    push local 4
+    push constant 30
+    gt
     pop local 1
+    push local 3
+    push constant 1
+    lt
+    pop local 0
     push local 1
-    call Enemy.move 1
-    pop temp 0
     push local 0
+    or
+    pop local 2
+    push this 4
+    pop local 7
+    push local 2
+    not
+    if-goto EnemyHandler_9
+    push this 3
+    not
+    not
+    if-goto EnemyHandler_11
+    push constant 1
+    neg
+    pop this 3
+    push constant 0
+    pop this 4
+    goto EnemyHandler_10
+label EnemyHandler_11
+label EnemyHandler_10
+    goto EnemyHandler_8
+label EnemyHandler_9
+    push constant 0
+    pop this 3
+    push local 1
+    not
+    if-goto EnemyHandler_13
+    push constant 1
+    neg
+    pop this 4
+    goto EnemyHandler_12
+label EnemyHandler_13
+label EnemyHandler_12
+    push local 0
+    not
+    if-goto EnemyHandler_15
+    push constant 1
+    pop this 4
+    goto EnemyHandler_14
+label EnemyHandler_15
+label EnemyHandler_14
+label EnemyHandler_8
+label EnemyHandler_16
+    push local 5
+    push this 1
+    lt
+    not
+    if-goto EnemyHandler_17
+    push local 5
+    push this 0
+    add
+    pop pointer 1
+    push that 0
+    pop local 10
+    push local 10
+    push this 4
+    call Enemy.move 2
+    pop temp 0
+    push local 5
     push constant 1
     add
-    pop local 0
-    goto EnemyHandler_4
-label EnemyHandler_5
+    pop local 5
+    goto EnemyHandler_16
+label EnemyHandler_17
+    push this 4
+    not
+    not
+    if-goto EnemyHandler_19
+    push local 7
+    push constant 1
+    neg
+    call Math.multiply 2
+    pop this 4
+    goto EnemyHandler_18
+label EnemyHandler_19
+label EnemyHandler_18
+    goto EnemyHandler_6
+label EnemyHandler_7
+    push static 2
+    push constant 1
+    add
+    pop static 2
+label EnemyHandler_6
     push constant 0
     return
 function EnemyHandler.delete 0

@@ -4,13 +4,11 @@ class Enemy {
    field int screenLoc;
    field int size; 
    static int MOVEMENT;
-   static int animationDelayCycles;
-   static int currentDelayCycle;
-   constructor Enemy new(int screenLoc) {
-      let screenLoc =screenLoc;
+
+   constructor Enemy new(int loc) {
+      let screenLoc =loc;
       let MOVEMENT = 1; 
-      let animationDelayCycles = 1000;
-      let currentDelayCycle = 0;
+
       return this;
    }
 
@@ -21,58 +19,44 @@ class Enemy {
    }
    method void deleteSprite(){
       var int memAddress;
-      let memAddress =  screenLoc;
-      do Helpers.safeScreenPoke(memAddress, 0);
-      do Helpers.safeScreenPoke(memAddress + 32, 0);
-      do Helpers.safeScreenPoke(memAddress + 64, 0);
-      do Helpers.safeScreenPoke(memAddress + 96, 0);
-      do Helpers.safeScreenPoke(memAddress + 128, 0);
-      do Helpers.safeScreenPoke(memAddress + 160, 0);
-      do Helpers.safeScreenPoke(memAddress + 192, 0);
-      do Helpers.safeScreenPoke(memAddress + 224, 0);
-      do Helpers.safeScreenPoke(memAddress + 256, 0);
-      do Helpers.safeScreenPoke(memAddress + 288, 0);
-      do Helpers.safeScreenPoke(memAddress + 320, 0);
-      do Helpers.safeScreenPoke(memAddress + 352, 0);
-      do Helpers.safeScreenPoke(memAddress + 384, 0);
-      do Helpers.safeScreenPoke(memAddress + 416, 0);
-      do Helpers.safeScreenPoke(memAddress + 448, 0);
-      do Helpers.safeScreenPoke(memAddress + 480, 0);
-      do Helpers.safeScreenPoke(memAddress + 512, 0);
-      do Helpers.safeScreenPoke(memAddress + 544, 0);
-      do Helpers.safeScreenPoke(memAddress + 576, 0);
-      do Helpers.safeScreenPoke(memAddress + 608, 0);
-      do Helpers.safeScreenPoke(memAddress + 640, 0);
-      do Helpers.safeScreenPoke(memAddress + 672, 0);
-      do Helpers.safeScreenPoke(memAddress + 704, 0);
-      do Helpers.safeScreenPoke(memAddress + 736, 0);
-      do Helpers.safeScreenPoke(memAddress + 768, 0);
-      do Helpers.safeScreenPoke(memAddress + 800, 0);
-      // column 1
-      do Helpers.safeScreenPoke(memAddress + 1, 0);
-      do Helpers.safeScreenPoke(memAddress + 33, 0);
-      do Helpers.safeScreenPoke(memAddress + 65, 0);
-      do Helpers.safeScreenPoke(memAddress + 97, 0);
-      do Helpers.safeScreenPoke(memAddress + 129, 0);
-      do Helpers.safeScreenPoke(memAddress + 161, 0);
-      do Helpers.safeScreenPoke(memAddress + 193, 0);
-      do Helpers.safeScreenPoke(memAddress + 225, 0);
-      do Helpers.safeScreenPoke(memAddress + 257, 0);
-      do Helpers.safeScreenPoke(memAddress + 289, 0);
-      do Helpers.safeScreenPoke(memAddress + 321, 0);
-      do Helpers.safeScreenPoke(memAddress + 353, 0);
-      do Helpers.safeScreenPoke(memAddress + 385, 0);
-      do Helpers.safeScreenPoke(memAddress + 417, 0);
-      do Helpers.safeScreenPoke(memAddress + 449, 0);
-      do Helpers.safeScreenPoke(memAddress + 481, 0);
-      do Helpers.safeScreenPoke(memAddress + 513, 0);
-      do Helpers.safeScreenPoke(memAddress + 545, 0);
-      do Helpers.safeScreenPoke(memAddress + 577, 0);
-      do Helpers.safeScreenPoke(memAddress + 609, 0);
-      do Helpers.safeScreenPoke(memAddress + 641, 0);
-      do Helpers.safeScreenPoke(memAddress + 673, 0);
-      do Helpers.safeScreenPoke(memAddress + 705, 0);
-      return;
+         let memAddress = screenLoc;
+         do Helpers.safeScreenPoke(memAddress, 0);
+         do Helpers.safeScreenPoke(memAddress +32, 0);
+         do Helpers.safeScreenPoke(memAddress +64, 0);
+         do Helpers.safeScreenPoke(memAddress +96, 0);
+         do Helpers.safeScreenPoke(memAddress +128, 0);
+         do Helpers.safeScreenPoke(memAddress +160, 0);
+         do Helpers.safeScreenPoke(memAddress +192, 0);
+         do Helpers.safeScreenPoke(memAddress +224, 0);
+         do Helpers.safeScreenPoke(memAddress +256, 0);
+         do Helpers.safeScreenPoke(memAddress +288, 0);
+         do Helpers.safeScreenPoke(memAddress +320, 0);
+         do Helpers.safeScreenPoke(memAddress +352, 0);
+         do Helpers.safeScreenPoke(memAddress +384, 0);
+         do Helpers.safeScreenPoke(memAddress +416, 0);
+         do Helpers.safeScreenPoke(memAddress +448, 0);
+         do Helpers.safeScreenPoke(memAddress +480, 0);
+         do Helpers.safeScreenPoke(memAddress +512, 0);
+         do Helpers.safeScreenPoke(memAddress +544, 0);
+         do Helpers.safeScreenPoke(memAddress +576, 0);
+         // column 1
+         do Helpers.safeScreenPoke(memAddress +1, 0);
+         do Helpers.safeScreenPoke(memAddress +33, 0);
+         do Helpers.safeScreenPoke(memAddress +65, 0);
+         do Helpers.safeScreenPoke(memAddress +97, 0);
+         do Helpers.safeScreenPoke(memAddress +129, 0);
+         do Helpers.safeScreenPoke(memAddress +161, 0);
+         do Helpers.safeScreenPoke(memAddress +193, 0);
+         do Helpers.safeScreenPoke(memAddress +225, 0);
+         do Helpers.safeScreenPoke(memAddress +257, 0);
+         do Helpers.safeScreenPoke(memAddress +289, 0);
+         do Helpers.safeScreenPoke(memAddress +321, 0);
+         do Helpers.safeScreenPoke(memAddress +353, 0);
+         do Helpers.safeScreenPoke(memAddress +385, 0);
+         do Helpers.safeScreenPoke(memAddress +417, 0);
+         do Helpers.safeScreenPoke(memAddress +449, 0);
+         do Helpers.safeScreenPoke(memAddress +481, 0);
+      return 0;
    }
 
 
@@ -124,19 +108,16 @@ class Enemy {
       do dispose();
       return;
    }
-   method void getMemLoc() {
-      return 
-      return;
+   method void getScreenLoc() {
+      
+      return screenLoc;
    }
 
 
 
    method int move(int direction) {
-      var int memAddress,mod32res,x,y;
-
-      if(currentDelayCycle=animationDelayCycles){
-         let currentDelayCycle = 0;
-         
+         var int memAddress,mod32res,x,y;
+         do deleteSprite(); 
          if(direction=1){
              let screenLoc = screenLoc +MOVEMENT;//RIGHT
          }
@@ -144,22 +125,20 @@ class Enemy {
              let screenLoc = screenLoc -MOVEMENT;//LEFT
          }
          if(direction = 0){
-            let screenLoc = screenLoc +32;
+            let screenLoc = screenLoc +320;
+            
          }
 
-         if(screenLoc>2934){
-            do deleteSprite();
-            do dispose();
-            return 0;
-         }
-         do deleteSprite();
+         // if(screenLoc>2934){
+         //    do deleteSprite();
+         //    do dispose();
+         //    return 0;
+         // }
+       
          do draw();
          return 1;
-      }
-      else{
-         let currentDelayCycle = currentDelayCycle+1;
-         return 1;
-      }
+      
+
       return 0;
      
    }

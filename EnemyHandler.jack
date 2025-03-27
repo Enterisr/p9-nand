@@ -8,12 +8,16 @@ class EnemyHandler {
    static int MAX_ENEMIES;
    field boolean movedDownLastTime;
    field boolean movingDirection;
+    static int animationDelayCycles;
+   static int currentDelayCycle;
    constructor EnemyHandler new() {
-      let startScreenLoc =16484;
+      let startScreenLoc =17484;
       let MAX_ENEMIES = 20;
+            let animationDelayCycles = 10000;
+      let currentDelayCycle = 0;
       let movedDownLastTime = false;
       let enemiesCount = 0; 
-      let movingDirection = 1;
+      let movingDirection = -1;
       let enemies = Array.new(MAX_ENEMIES);
       return this;
    }
@@ -44,7 +48,8 @@ class EnemyHandler {
         var Enemy enemyIt;
         let i = 0;
         let reqSize = enemiesCount + num;
-
+        let finalMemLoc = startScreenLoc;
+        
         if(reqSize>MAX_ENEMIES){
             do Sys.error(101);
             return;
@@ -52,8 +57,8 @@ class EnemyHandler {
         
         let enemiesCount = enemiesCount  +num;
         while(i<num){
-            let memLocationShift =finalMemLoc + 2;
-            let finalMemLoc = startScreenLoc +memLocationShift;
+            
+            let finalMemLoc = finalMemLoc +3 ;
             let enemyIt = Enemy.new(finalMemLoc); 
             do enemyIt.draw();
             let enemies[i] = enemyIt;
@@ -63,32 +68,42 @@ class EnemyHandler {
         return;
     }
     method void drawEnemies(){
-        var boolean isEndLeft,isEndRight;
-        var int firstX,lastX,i,lastIdx;
+        var boolean isEndLeft,isEndRight,isEnd;
+        var int firstX,lastX,i,lastIdx,previousDirction;
         var Enemy firstEnemy,lastEnemy,enemyIt;
-
+      if(currentDelayCycle=animationDelayCycles){
+        let currentDelayCycle = 0;
         let i = 0;
         let lastIdx = enemiesCount-1;
         let firstEnemy = enemies[0];
         let lastEnemy = enemies[lastIdx];
-        let firstX = Helpers.getXFromMemoryLoc(firstEnemy.);
-        let lastX = Helpers.getXFromMemoryLoc();
+        let firstX = Helpers.getXFromMemoryLoc(firstEnemy.getScreenLoc());
+        let lastX = Helpers.getXFromMemoryLoc(lastEnemy.getScreenLoc());
         let isEndRight = lastX>30;
         let isEndLeft = firstX<1;
         let isEnd = isEndRight|isEndLeft;
+        let previousDirction = movingDirection;
+        // do Output.printInt(firstX);
+        // do Output.printString("---");
+        // do Output.printInt(lastX);
+        // do Output.printString(";  ");
+
+        
         if(isEnd){
             if(~movedDownLastTime){
-           
-                let movedDownLastTime =true; 
+                
+                let movedDownLastTime =true;
                 let movingDirection = 0;
             }
         }
         else{
             let movedDownLastTime =false; 
             if(isEndRight){
+
                 let movingDirection = -1;
             }
             if(isEndLeft){
+
                 let movingDirection = 1;
             }
         }
@@ -97,6 +112,14 @@ class EnemyHandler {
             let enemyIt = enemies[i]; 
             do enemyIt.move(movingDirection);
             let i=i+1;
+        }
+        if (~movingDirection){
+        //change direction
+           let  movingDirection = Math.multiply(previousDirction,-1);
+        }
+        }
+        else{
+            let currentDelayCycle = currentDelayCycle+1;
         }
         return;
         }

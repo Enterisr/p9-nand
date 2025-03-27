@@ -50,8 +50,6 @@ class RikoGame {
       var Bullet b;
       if(bulletCount<5)
       {   
-         do Output.printString("spawn BULLET");
-         do Output.printInt(playerLoc);
          let b = Bullet.new(playerLoc);
          let bullets[bulletCount] = b;
          let bulletCount=bulletCount+1;
@@ -110,7 +108,7 @@ class RikoGame {
       var boolean toShoot;
       let exit = false;
       let toShoot = false;
-      do enemyHandler.spawnEnemies(1);
+      do enemyHandler.spawnEnemies(5);
       do drawBase();
       do riko.draw();
      // do Output.printInt(riko.getMemLoc());

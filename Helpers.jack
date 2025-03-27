@@ -40,7 +40,7 @@ class Helpers{
     }
 
     function void safeScreenPoke(int addr,int val){
-      if(addr>0 )
+      if(addr>16384 )
       {
          if(addr<24605){
             do Memory.poke(addr,val);

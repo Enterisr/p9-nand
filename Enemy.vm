@@ -3,13 +3,9 @@ function Enemy.new 0
     call Memory.alloc 1
     pop pointer 0
     push argument 0
-    pop argument 0
+    pop this 0
     push constant 1
     pop static 0
-    push constant 1000
-    pop static 1
-    push constant 0
-    pop static 2
     push pointer 0
     return
 function Enemy.dispose 0
@@ -23,9 +19,7 @@ function Enemy.dispose 0
 function Enemy.deleteSprite 1
     push argument 0
     pop pointer 0
-    push constant 16384
     push this 0
-    add
     pop local 0
     push local 0
     push constant 0
@@ -140,48 +134,6 @@ function Enemy.deleteSprite 1
     call Helpers.safeScreenPoke 2
     pop temp 0
     push local 0
-    push constant 608
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
-    push constant 640
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
-    push constant 672
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
-    push constant 704
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
-    push constant 736
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
-    push constant 768
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
-    push constant 800
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
     push constant 1
     add
     push constant 0
@@ -277,56 +229,12 @@ function Enemy.deleteSprite 1
     push constant 0
     call Helpers.safeScreenPoke 2
     pop temp 0
-    push local 0
-    push constant 513
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
-    push constant 545
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
-    push constant 577
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
-    push constant 609
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
-    push constant 641
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
-    push constant 673
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
-    push local 0
-    push constant 705
-    add
-    push constant 0
-    call Helpers.safeScreenPoke 2
-    pop temp 0
     push constant 0
     return
 function Enemy.draw 1
     push argument 0
     pop pointer 0
-    push constant 16384
     push this 0
-    add
     pop local 0
     push local 0
     push constant 32738
@@ -554,71 +462,58 @@ function Enemy.delete 0
     pop temp 0
     push constant 0
     return
-function Enemy.move 2
+function Enemy.getScreenLoc 0
     push argument 0
     pop pointer 0
-    push static 2
-    push static 1
+    push this 0
+    return
+function Enemy.move 4
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Enemy.deleteSprite 1
+    pop temp 0
+    push argument 1
+    push constant 1
     eq
     not
     if-goto Enemy_1
-    push constant 0
-    pop static 2
-    push constant 16384
-    push this 0
-    add
-    pop local 0
-    push local 0
-    call Helpers.mod32 1
-    pop local 1
-    push local 1
-    push constant 1
-    lt
-    not
-    if-goto Enemy_3
-    push this 0
-    push constant 32
-    add
-    pop this 0
-    goto Enemy_2
-label Enemy_3
     push this 0
     push static 0
     add
     pop this 0
-label Enemy_2
+    goto Enemy_0
+label Enemy_1
+label Enemy_0
+    push argument 1
+    push constant 1
+    neg
+    eq
+    not
+    if-goto Enemy_3
     push this 0
-    push constant 23934
-    gt
+    push static 0
+    sub
+    pop this 0
+    goto Enemy_2
+label Enemy_3
+label Enemy_2
+    push argument 1
+    push constant 0
+    eq
     not
     if-goto Enemy_5
-    push pointer 0
-    call Enemy.deleteSprite 1
-    pop temp 0
-    push pointer 0
-    call Enemy.dispose 1
-    pop temp 0
-    push constant 0
-    return
+    push this 0
+    push constant 320
+    add
+    pop this 0
     goto Enemy_4
 label Enemy_5
 label Enemy_4
-    push pointer 0
-    call Enemy.deleteSprite 1
-    pop temp 0
     push pointer 0
     call Enemy.draw 1
     pop temp 0
     push constant 1
     return
-    goto Enemy_0
-label Enemy_1
-    push static 2
-    push constant 1
-    add
-    pop static 2
-    push constant 1
-    return
-label Enemy_0
     push constant 0
     return
