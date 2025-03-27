@@ -85,9 +85,9 @@ class EnemyHandler {
         return false;
     }
 
-    method void drawEnemies(){
-        var boolean isEndLeft,isEndRight,isEnd;
-        var int firstX,lastX,i,lastIdx,previousDirction;
+    method int drawEnemies(int baseLocation){
+        var boolean isEndLeft,isEndRight,isEnd,isTouchBase;
+        var int firstX,lastX,y ,i,lastIdx,previousDirction;
         var Enemy firstEnemy,lastEnemy,enemyIt;
       if(currentDelayCycle=animationDelayCycles){
         let currentDelayCycle = 0;
@@ -97,11 +97,18 @@ class EnemyHandler {
         let lastEnemy = enemies[lastIdx];
         let firstX = Helpers.getXFromMemoryLoc(firstEnemy.getScreenLoc());
         let lastX = Helpers.getXFromMemoryLoc(lastEnemy.getScreenLoc());
+        let isTouchBase = Helpers.checkProximity(baseLocation,firstEnemy.getScreenLoc(),1000,20);
         let isEndRight = lastX>30;
         let isEndLeft = firstX<1;
+        let isEndLeft = y<1;
         let isEnd = isEndRight|isEndLeft;
         let previousDirction = movingDirection;
-
+                            do Output.moveCursor(15,15);
+        do Output.printString("is touch base::");
+         do Output.printInt(isTouchBase);
+        if(isTouchBase){
+            return 1; //game over
+        }
         
         if(isEnd){
             if(~movedDownLastTime){
@@ -135,7 +142,7 @@ class EnemyHandler {
         else{
             let currentDelayCycle = currentDelayCycle+1;
         }
-        return;
+        return 0;
         }
     
 

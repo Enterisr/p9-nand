@@ -9,11 +9,13 @@ class RikoGame {
    field int score;
    static int animationDelayCycles;
    field int currentDelayCycle; 
+   field int baseLocation;
 
    /** Constructs a new Riko Game. */
    constructor RikoGame new() {
       let enemyHandler = EnemyHandler.new();
       let riko = Riko.new(22934);
+      let baseLocation = 23934;
       let bullets = Array.new(2);
       let direction = 0; 
       let bulletCount = 0;    
@@ -26,6 +28,14 @@ class RikoGame {
       let currentDelayCycle = 0;
       return this;
    }
+   method void handleGameover(){
+      
+      do Output.moveCursor(10,10);
+      do Output.printString("GAME OVER");
+      do Sys.wait(3000);
+      do dispose();
+      return;
+   }
    method void updateScore(){
       
       let score = score+1;
@@ -33,9 +43,23 @@ class RikoGame {
       do Output.printInt(score);
       return;
    }
+   method void disposeBullets(){
+      var int i;
+      var Bullet bTemp;
+      let bTemp =  bullets[i];
+      while(bulletCount>i ){
+        let bTemp =  bullets[i];
+        do bTemp.dispose();
+      }
+      do bullets.dispose();
+      let bulletCount = 0;
+      return;
+   }
    /** Disposes this game. */
    method void dispose() {
       do riko.dispose();
+      do enemyHandler.dispose();
+      do disposeBullets();
       do Memory.deAlloc(this);
       return;
    }
@@ -109,7 +133,7 @@ class RikoGame {
       var int i;
       let i = 0;
       // 24574 - 640; SCREENSIZE - OFFSET TO DRAW+SPACE
-      let memAddress = 23934;
+      let memAddress = baseLocation;
       while(i<224)
       {
          do Memory.poke(memAddress + i, -1);
@@ -118,21 +142,25 @@ class RikoGame {
       return;
    }
    
-   method void drawScene(){
-      var boolean redraw;
+   method int drawScene(){
+      var boolean redraw,isGameOver;
       if(currentDelayCycle=animationDelayCycles)
       {
-         do enemyHandler.drawEnemies();
+         let isGameOver = enemyHandler.drawEnemies(baseLocation);
+         if(isGameOver=1){
+            return 1;
+         }
          let redraw= drawBullets();
          if(redraw){
             do drawScene();
          }
-         return;
+
+         return 0;
          }
       else
       {
          let currentDelayCycle = currentDelayCycle+1;
-         return 1;
+         return 0;
       }  
    }
 
@@ -149,7 +177,11 @@ class RikoGame {
       while (~exit) {
 
          while (key = 0) {         
-            do drawScene();
+            let exit =  drawScene(); 
+            if(exit=1){
+               do handleGameover();
+               return;
+            }
             let key = Keyboard.keyPressed();
             let direction = 0;
             let toShoot = false;
@@ -160,7 +192,11 @@ class RikoGame {
          if (key = 32)  { let toShoot = true; } //shoot
 
          while (~(key = 0)) {
-            do drawScene();
+            let exit =  drawScene(); 
+            if(exit=1){
+               do handleGameover();
+               return;
+            }
             let key = Keyboard.keyPressed();
             do moveRiko();
             if(toShoot){

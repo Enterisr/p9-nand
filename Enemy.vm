@@ -504,7 +504,7 @@ label Enemy_2
     not
     if-goto Enemy_5
     push this 0
-    push constant 320
+    push constant 960
     add
     pop this 0
     goto Enemy_4

@@ -183,7 +183,7 @@ label EnemyHandler_8
 label EnemyHandler_7
     push constant 0
     return
-function EnemyHandler.drawEnemies 11
+function EnemyHandler.drawEnemies 13
     push argument 0
     pop pointer 0
     push static 2
@@ -194,36 +194,47 @@ function EnemyHandler.drawEnemies 11
     push constant 0
     pop static 2
     push constant 0
-    pop local 5
+    pop local 7
     push this 1
     push constant 1
     sub
-    pop local 6
+    pop local 8
     push constant 0
     push this 0
     add
     pop pointer 1
     push that 0
-    pop local 8
-    push local 6
+    pop local 10
+    push local 8
     push this 0
     add
     pop pointer 1
     push that 0
-    pop local 9
-    push local 8
-    call Enemy.getScreenLoc 1
-    call Helpers.getXFromMemoryLoc 1
-    pop local 3
-    push local 9
+    pop local 11
+    push local 10
     call Enemy.getScreenLoc 1
     call Helpers.getXFromMemoryLoc 1
     pop local 4
-    push local 4
+    push local 11
+    call Enemy.getScreenLoc 1
+    call Helpers.getXFromMemoryLoc 1
+    pop local 5
+    push argument 1
+    push local 10
+    call Enemy.getScreenLoc 1
+    push constant 1000
+    push constant 20
+    call Helpers.checkProximity 4
+    pop local 3
+    push local 5
     push constant 30
     gt
     pop local 1
-    push local 3
+    push local 4
+    push constant 1
+    lt
+    pop local 0
+    push local 6
     push constant 1
     lt
     pop local 0
@@ -232,78 +243,127 @@ function EnemyHandler.drawEnemies 11
     or
     pop local 2
     push this 4
-    pop local 7
-    push local 2
+    pop local 9
+    push constant 15
+    push constant 15
+    call Output.moveCursor 2
+    pop temp 0
+    push constant 15
+    call String.new 1
+    push constant 105
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 116
+    call String.appendChar 2
+    push constant 111
+    call String.appendChar 2
+    push constant 117
+    call String.appendChar 2
+    push constant 99
+    call String.appendChar 2
+    push constant 104
+    call String.appendChar 2
+    push constant 32
+    call String.appendChar 2
+    push constant 98
+    call String.appendChar 2
+    push constant 97
+    call String.appendChar 2
+    push constant 115
+    call String.appendChar 2
+    push constant 101
+    call String.appendChar 2
+    push constant 58
+    call String.appendChar 2
+    push constant 58
+    call String.appendChar 2
+    call Output.printString 1
+    pop temp 0
+    push local 3
+    call Output.printInt 1
+    pop temp 0
+    push local 3
     not
     if-goto EnemyHandler_13
-    push this 3
-    not
-    not
-    if-goto EnemyHandler_15
     push constant 1
-    neg
-    pop this 3
-    push constant 0
-    pop this 4
-    goto EnemyHandler_14
-label EnemyHandler_15
-label EnemyHandler_14
+    return
     goto EnemyHandler_12
 label EnemyHandler_13
-    push constant 0
-    pop this 3
-    push local 1
+label EnemyHandler_12
+    push local 2
+    not
+    if-goto EnemyHandler_15
+    push this 3
+    not
     not
     if-goto EnemyHandler_17
     push constant 1
     neg
+    pop this 3
+    push constant 0
     pop this 4
     goto EnemyHandler_16
 label EnemyHandler_17
 label EnemyHandler_16
-    push local 0
+    goto EnemyHandler_14
+label EnemyHandler_15
+    push constant 0
+    pop this 3
+    push local 1
     not
     if-goto EnemyHandler_19
     push constant 1
+    neg
     pop this 4
     goto EnemyHandler_18
 label EnemyHandler_19
 label EnemyHandler_18
-label EnemyHandler_12
+    push local 0
+    not
+    if-goto EnemyHandler_21
+    push constant 1
+    pop this 4
+    goto EnemyHandler_20
+label EnemyHandler_21
 label EnemyHandler_20
-    push local 5
+label EnemyHandler_14
+label EnemyHandler_22
+    push local 7
     push this 1
     lt
     not
-    if-goto EnemyHandler_21
-    push local 5
+    if-goto EnemyHandler_23
+    push local 7
     push this 0
     add
     pop pointer 1
     push that 0
-    pop local 10
-    push local 10
+    pop local 12
+    push local 12
     push this 4
     call Enemy.move 2
     pop temp 0
-    push local 5
+    push local 7
     push constant 1
     add
-    pop local 5
-    goto EnemyHandler_20
-label EnemyHandler_21
+    pop local 7
+    goto EnemyHandler_22
+label EnemyHandler_23
     push this 4
     not
     not
-    if-goto EnemyHandler_23
-    push local 7
+    if-goto EnemyHandler_25
+    push local 9
     push constant 1
     neg
     call Math.multiply 2
     pop this 4
-    goto EnemyHandler_22
-label EnemyHandler_23
-label EnemyHandler_22
+    goto EnemyHandler_24
+label EnemyHandler_25
+label EnemyHandler_24
     goto EnemyHandler_10
 label EnemyHandler_11
     push static 2

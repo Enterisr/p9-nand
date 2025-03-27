@@ -35,6 +35,19 @@ class Helpers{
         let diffYAbs = Math.abs(diffY); 
         let isHitX =  diffXAbs<sensativityX;
         let isHitY =  diffYAbs<sensativityY;
+        if(sensativityX=1000){
+            // do Output.moveCursor(17,21);
+            // do Output.printInt(diffXAbs);
+            // do Output.printString("---");
+            // do Output.printInt(diffYAbs);
+            // do Output.printString(";");
+            
+            // do Output.moveCursor(20,25);
+            // do Output.printInt(obj1LocOnMemory);
+            // do Output.printString("---");
+            // do Output.printInt(obj2LocOnMemory);
+            // do Output.printString(";");
+        }
         // do Output.printInt(diffXAbs);
         // do Output.printString("---");
         // do Output.printInt(diffYAbs);

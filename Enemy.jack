@@ -125,7 +125,7 @@ class Enemy {
              let screenLoc = screenLoc -MOVEMENT;//LEFT
          }
          if(direction = 0){
-            let screenLoc = screenLoc +320;
+            let screenLoc = screenLoc +960;
             
          }
          do draw();
