@@ -8,15 +8,18 @@ class Bullet {
    field int currentDelayCycle; 
    constructor Bullet new(int playerMemLoc) {
       let screenLoc = playerMemLoc-320;
-      let MOVEMENT =128;
+      let MOVEMENT =256;
       let LENGTH = 10;
-      let animationDelayCycles =150;
+      let animationDelayCycles =300;
       let currentDelayCycle = 0;
       do draw();
       return this;
    }
 
 
+   method int getScreenLoc() {
+      return screenLoc;
+   }
    method void dispose() {
       do Memory.deAlloc(this);
       return;

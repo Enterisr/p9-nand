@@ -13,7 +13,7 @@ class EnemyHandler {
    constructor EnemyHandler new() {
       let startScreenLoc =17484;
       let MAX_ENEMIES = 20;
-            let animationDelayCycles = 10000;
+      let animationDelayCycles = 10000;
       let currentDelayCycle = 0;
       let movedDownLastTime = false;
       let enemiesCount = 0; 
@@ -38,6 +38,7 @@ class EnemyHandler {
         let enemies[i-1] = bTemp;
         let i = i+1;
       }
+      let enemiesCount = enemiesCount - 1;
       return;
    }
     method void spawnEnemies(int num){
@@ -67,6 +68,23 @@ class EnemyHandler {
 
         return;
     }
+    
+    method boolean handleBulletHitInEnemy(int bulletMemLoc){
+        var Enemy enemyIt;
+        var boolean isClose;
+        var int i;             
+        while(i<enemiesCount){
+            let enemyIt = enemies[i]; 
+            let isClose = Helpers.checkProximity(bulletMemLoc,enemyIt.getScreenLoc(),3,10);
+            if(isClose){
+                do removeEnemy(i);
+                return true;
+            }
+            let i=i+1;
+        }
+        return false;
+    }
+
     method void drawEnemies(){
         var boolean isEndLeft,isEndRight,isEnd;
         var int firstX,lastX,i,lastIdx,previousDirction;
@@ -83,10 +101,6 @@ class EnemyHandler {
         let isEndLeft = firstX<1;
         let isEnd = isEndRight|isEndLeft;
         let previousDirction = movingDirection;
-        // do Output.printInt(firstX);
-        // do Output.printString("---");
-        // do Output.printInt(lastX);
-        // do Output.printString(";  ");
 
         
         if(isEnd){

@@ -6,19 +6,33 @@ class RikoGame {
    field Array bullets;
    field int bulletCount;
    field EnemyHandler enemyHandler;
-   
-
+   field int score;
+   static int animationDelayCycles;
+   field int currentDelayCycle; 
 
    /** Constructs a new Riko Game. */
    constructor RikoGame new() {
       let enemyHandler = EnemyHandler.new();
       let riko = Riko.new(22934);
-      let bullets = Array.new(5);
+      let bullets = Array.new(2);
       let direction = 0; 
-      let bulletCount = 0;     
+      let bulletCount = 0;    
+      let score = 0; 
+      do Output.moveCursor(1,1);
+      do Output.printString("Score: ");
+      do Output.moveCursor(1,10);
+      do Output.printInt(score);
+      let animationDelayCycles =30000;
+      let currentDelayCycle = 0;
       return this;
    }
-
+   method void updateScore(){
+      
+      let score = score+1;
+      do Output.moveCursor(1,10);
+      do Output.printInt(score);
+      return;
+   }
    /** Disposes this game. */
    method void dispose() {
       do riko.dispose();
@@ -38,7 +52,7 @@ class RikoGame {
       let bTemp =  bullets[i];
       do bTemp.delete();
       let i = idx+1;
-
+      let bulletCount = bulletCount -1;
       while(bulletCount>i ){
         let bTemp =  bullets[i];
         let bullets[i-1] = bTemp;
@@ -57,22 +71,31 @@ class RikoGame {
       }
       return;
    }
-   method void drawBullets(){
+
+
+   method boolean drawBullets(){
       var Bullet b;
       var int i;
+      var boolean isBulletHit;
       var int res;
       let i=0;
       while(i<bulletCount){
          let b = bullets[i];
          let res =  b.move();
          if(~res){
-            // do Output.printString("removing bullet!");
             do removeBullet(i);
-            let bulletCount = bulletCount -1;
          }
-         let i=i+1;
+         else{
+            let isBulletHit =  enemyHandler.handleBulletHitInEnemy(b.getScreenLoc());
+                  if(isBulletHit){                        
+                        do updateScore();
+                        do removeBullet(i);
+                        return true; //trigger redraw 
+               }
+         }
+            let i=i+1;
       }
-      return;
+      return false;
    }
 
    method void drawBase(){
@@ -96,9 +119,21 @@ class RikoGame {
    }
    
    method void drawScene(){
-      do enemyHandler.drawEnemies();
-      do drawBullets();
-      return;
+      var boolean redraw;
+      if(currentDelayCycle=animationDelayCycles)
+      {
+         do enemyHandler.drawEnemies();
+         let redraw= drawBullets();
+         if(redraw){
+            do drawScene();
+         }
+         return;
+         }
+      else
+      {
+         let currentDelayCycle = currentDelayCycle+1;
+         return 1;
+      }  
    }
 
    /** Runs the game: handles the user's inputs and moves the riko accordingly */
@@ -111,7 +146,6 @@ class RikoGame {
       do enemyHandler.spawnEnemies(5);
       do drawBase();
       do riko.draw();
-     // do Output.printInt(riko.getMemLoc());
       while (~exit) {
 
          while (key = 0) {         

@@ -20,16 +20,27 @@ class Helpers{
     //     let rowOffset = Math.multiply(x,32);
     //     let colOffset = 
     // }   
-    function int checkProximity(int obj1LocOnMemory,int obj2LocOnMemory, int sensativity){
+    function boolean checkProximity(int obj1LocOnMemory,int obj2LocOnMemory, int sensativityX,int sensativityY){
         //trying to simulate hitboxes
-        var int diff,absDiff;
+        var int x1,x2,y1,y2, diffX,diffY, diffXAbs, diffYAbs;
+        var boolean isHitX,isHitY,isHit;        
+        let x1  = Helpers.getXFromMemoryLoc(obj1LocOnMemory);
+        let x2 =  Helpers.getXFromMemoryLoc(obj2LocOnMemory);
 
-        let diff =  obj1LocOnMemory - obj2LocOnMemory;
-        let absDiff = Math.abs(diff);
-        if(absDiff<sensativity){
-            return 1;
-        }
-        return 0;
+        let y1  =  Helpers.getYFromMemoryLoc(obj1LocOnMemory);
+        let y2 =  Helpers.getYFromMemoryLoc(obj2LocOnMemory);
+        let diffX = x1-x2;
+        let diffY = y1-y2;
+        let diffXAbs = Math.abs(diffX);
+        let diffYAbs = Math.abs(diffY); 
+        let isHitX =  diffXAbs<sensativityX;
+        let isHitY =  diffYAbs<sensativityY;
+        // do Output.printInt(diffXAbs);
+        // do Output.printString("---");
+        // do Output.printInt(diffYAbs);
+        // do Output.printString(";");
+        let isHit =isHitX & isHitY;
+        return isHit;
     }   
     
     function int mod32(int num){
