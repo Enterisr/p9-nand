@@ -1,5 +1,7 @@
+// Utility class with helper functions
 class Helpers{
 
+    // Calculates X coordinate from memory location
     function int getXFromMemoryLoc(int memoryLoc){
         var int screenOffset;
         var int x;
@@ -7,6 +9,8 @@ class Helpers{
         let x = Helpers.mod32(screenOffset);
         return x;
     }   
+    
+    // Calculates Y coordinate from memory location
     function int getYFromMemoryLoc(int memoryLoc){
         var int screenOffset;
         var int y;
@@ -20,6 +24,8 @@ class Helpers{
     //     let rowOffset = Math.multiply(x,32);
     //     let colOffset = 
     // }   
+    // Checks if two objects are close enough to be considered colliding
+    // Returns true if objects are within proximity thresholds
     function boolean checkProximity(int obj1LocOnMemory,int obj2LocOnMemory, int sensativityX,int sensativityY){
         //trying to simulate hitboxes
         var int x1,x2,y1,y2, diffX,diffY, diffXAbs, diffYAbs;
@@ -56,13 +62,15 @@ class Helpers{
         return isHit;
     }   
     
+    // Calculates modulo 32 of a number (bitwise method)
     function int mod32(int num){
       var int mo;
       // 0 0 0... 0 0 1 1 1
-      let mo =32-1;
-      return mo&num;
+      let mo = 32-1;
+      return mo & num;
     }
 
+    // Safe wrapper for Memory.poke that prevents out-of-bounds access
     function void safeScreenPoke(int addr,int val){
       if(addr>16384 )
       {

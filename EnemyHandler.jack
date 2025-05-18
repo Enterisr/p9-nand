@@ -1,19 +1,21 @@
-
+// Class that manages multiple enemy instances
 class EnemyHandler {
 
 
-   field Array enemies;
-   field int enemiesCount;
-   field int startScreenLoc;
-   static int MAX_ENEMIES;
-   field boolean movedDownLastTime;
-   field boolean movingDirection;
-    static int animationDelayCycles;
-   static int currentDelayCycle;
+   field Array enemies;           // Array of enemy objects
+   field int enemiesCount;        // Number of enemies currently active
+   field int startScreenLoc;      // Starting memory location for enemies
+   static int MAX_ENEMIES;        // Maximum number of enemies allowed
+   field boolean movedDownLastTime; // Tracks if enemies moved down in last cycle
+   field boolean movingDirection;   // Current movement direction (-1 left, 1 right)
+   static int animationDelayCycles; // Delay between movements
+   static int currentDelayCycle;    // Current cycle counter
+   
+   // Constructor - initializes the enemy handler
    constructor EnemyHandler new() {
       let startScreenLoc =17484;
       let MAX_ENEMIES = 20;
-      let animationDelayCycles = 10000;
+      let animationDelayCycles = 1000;
       let currentDelayCycle = 0;
       let movedDownLastTime = false;
       let enemiesCount = 0; 
@@ -21,11 +23,25 @@ class EnemyHandler {
       let enemies = Array.new(MAX_ENEMIES);
       return this;
    }
+    
+   // Returns current enemy count
+   method int getEnemiesCount() {
+        return enemiesCount;
+   }
+   
+   // Reduces the animation delay to speed up enemies
+   method void setDelay(int removeFromDelay) {
+        let animationDelayCycles =animationDelayCycles - removeFromDelay;
+        return;
+   }
 
+   // Frees handler memory
    method void dispose() {
       do Memory.deAlloc(this);
       return;
    }
+   
+   // Removes enemy at specified index
    method void removeEnemy(int idx){
       var int i;
       var Enemy bTemp;
@@ -41,7 +57,9 @@ class EnemyHandler {
       let enemiesCount = enemiesCount - 1;
       return;
    }
-    method void spawnEnemies(int num){
+   
+   // Creates specified number of new enemies
+   method void spawnEnemies(int num){
         var int i;
         var int memLocationShift;
         var int finalMemLoc;
@@ -52,7 +70,6 @@ class EnemyHandler {
         let finalMemLoc = startScreenLoc;
         
         if(reqSize>MAX_ENEMIES){
-            do Sys.error(101);
             return;
         }
         
@@ -69,6 +86,8 @@ class EnemyHandler {
         return;
     }
     
+    // Checks if bullet hit any enemy
+    // Returns true if hit detected
     method boolean handleBulletHitInEnemy(int bulletMemLoc){
         var Enemy enemyIt;
         var boolean isClose;
@@ -85,7 +104,9 @@ class EnemyHandler {
         return false;
     }
 
-    method int drawEnemies(int baseLocation){
+   // Updates and draws all enemies
+   // Returns 1 if game over (reached base)
+   method int drawEnemies(int baseLocation){
         var boolean isEndLeft,isEndRight,isEnd,isTouchBase;
         var int firstX,lastX,y ,i,lastIdx,previousDirction;
         var Enemy firstEnemy,lastEnemy,enemyIt;
@@ -100,19 +121,21 @@ class EnemyHandler {
         let isTouchBase = Helpers.checkProximity(baseLocation,firstEnemy.getScreenLoc(),1000,20);
         let isEndRight = lastX>30;
         let isEndLeft = firstX<1;
-        let isEndLeft = y<1;
+
+        do Output.moveCursor(15,20);
+ 
+        
         let isEnd = isEndRight|isEndLeft;
+
+        
         let previousDirction = movingDirection;
-                            do Output.moveCursor(15,15);
-        do Output.printString("is touch base::");
-         do Output.printInt(isTouchBase);
         if(isTouchBase){
             return 1; //game over
         }
         
         if(isEnd){
             if(~movedDownLastTime){
-                
+
                 let movedDownLastTime =true;
                 let movingDirection = 0;
             }
@@ -146,6 +169,7 @@ class EnemyHandler {
         }
     
 
+   // Free all resources
    method void delete() {
       do dispose();
       return;

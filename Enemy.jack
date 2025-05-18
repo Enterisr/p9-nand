@@ -1,10 +1,10 @@
-
+// Class representing an enemy character
 class Enemy {
 
-   field int screenLoc;
-   field int size; 
-   static int MOVEMENT;
+   field int screenLoc;    // Screen memory location
+   static int MOVEMENT;    // Movement speed
 
+   // Constructor - creates enemy at specified location
    constructor Enemy new(int loc) {
       let screenLoc =loc;
       let MOVEMENT = 1; 
@@ -13,10 +13,13 @@ class Enemy {
    }
 
 
+   // Frees memory allocated to enemy
    method void dispose() {
       do Memory.deAlloc(this);
       return;
    }
+   
+   // Erases enemy sprite from screen
    method void deleteSprite(){
       var int memAddress;
          let memAddress = screenLoc;
@@ -60,6 +63,7 @@ class Enemy {
    }
 
 
+   // Draws enemy sprite at current position
    method void draw() {
       var int memAddress;
       let memAddress =screenLoc;
@@ -103,18 +107,23 @@ class Enemy {
       return;
    }
 
+   // Completely removes enemy (erase + dispose)
    method void delete() {
       do deleteSprite();
       do dispose();
       return;
    }
+   
+   // Returns the current screen memory location
    method void getScreenLoc() {
       
       return screenLoc;
    }
 
 
-
+   // Moves enemy based on direction parameter
+   // 1 = right, -1 = left, 0 = down
+   // Returns 1 to indicate successful movement
    method int move(int direction) {
          var int memAddress,mod32res,x,y;
          do deleteSprite(); 
@@ -125,7 +134,7 @@ class Enemy {
              let screenLoc = screenLoc -MOVEMENT;//LEFT
          }
          if(direction = 0){
-            let screenLoc = screenLoc +960;
+            let screenLoc = screenLoc+160;
             
          }
          do draw();

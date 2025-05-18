@@ -1,22 +1,25 @@
-
+// Main game controller class
 class RikoGame {
-   field Riko riko; 
-   field int direction; // the riko's current direction: 
-                        // 0=none, 1=up, 2=down
-   field Array bullets;
-   field int bulletCount;
-   field EnemyHandler enemyHandler;
-   field int score;
-   static int animationDelayCycles;
-   field int currentDelayCycle; 
-   field int baseLocation;
-
-   /** Constructs a new Riko Game. */
+   field Riko riko;           // Player character
+   field int direction;       // Current movement direction: 0=none, 1=up, 2=down
+   field Array bullets;       // Array of active bullets
+   field int bulletCount;     // Number of bullets currently active
+   field EnemyHandler enemyHandler; // Enemy management object
+   field int score;           // Player's current score
+   static int animationDelayCycles; // Game animation delay
+   field int currentDelayCycle;     // Current animation cycle counter
+   field int baseLocation;    // Location of player base (bottom of screen)
+   field int maxBullets;      // Maximum bullets allowed at once
+   field int level;           // Current game level
+   
+   /** Constructs a new game instance */
    constructor RikoGame new() {
       let enemyHandler = EnemyHandler.new();
-      let riko = Riko.new(22934);
+      let riko = Riko.new();
       let baseLocation = 23934;
-      let bullets = Array.new(2);
+      let level = 3;
+      let maxBullets = 1;
+      let bullets = Array.new(maxBullets);
       let direction = 0; 
       let bulletCount = 0;    
       let score = 0; 
@@ -24,10 +27,12 @@ class RikoGame {
       do Output.printString("Score: ");
       do Output.moveCursor(1,10);
       do Output.printInt(score);
-      let animationDelayCycles =30000;
+      let animationDelayCycles =3000;
       let currentDelayCycle = 0;
       return this;
    }
+   
+   // Displays game over screen and ends the game
    method void handleGameover(){
       
       do Output.moveCursor(10,10);
@@ -36,6 +41,8 @@ class RikoGame {
       do dispose();
       return;
    }
+   
+   // Increases and displays the updated score
    method void updateScore(){
       
       let score = score+1;
@@ -43,6 +50,8 @@ class RikoGame {
       do Output.printInt(score);
       return;
    }
+   
+   // Removes all bullets and frees memory
    method void disposeBullets(){
       var int i;
       var Bullet bTemp;
@@ -50,12 +59,14 @@ class RikoGame {
       while(bulletCount>i ){
         let bTemp =  bullets[i];
         do bTemp.dispose();
+        let i = i+1;
       }
       do bullets.dispose();
       let bulletCount = 0;
       return;
    }
-   /** Disposes this game. */
+   
+   /** Frees all game resources */
    method void dispose() {
       do riko.dispose();
       do enemyHandler.dispose();
@@ -64,12 +75,14 @@ class RikoGame {
       return;
    }
 
-   /** Moves the riko in the current direction. */
+   /** Moves the player based on current direction */
    method void moveRiko() {
       if (direction = 3) { do riko.moveLeft(); }
       if (direction = 4) { do riko.moveRight(); }
       return;
    }
+   
+   // Removes a bullet at specified index
    method void removeBullet(int idx){
       var int i;
       var Bullet bTemp;
@@ -84,9 +97,11 @@ class RikoGame {
       }
       return;
    }
+   
+   // Creates a new bullet at player's position
    method void spawnBullet(int playerLoc) {
       var Bullet b;
-      if(bulletCount<5)
+      if(bulletCount<maxBullets)
       {   
          let b = Bullet.new(playerLoc);
          let bullets[bulletCount] = b;
@@ -96,7 +111,8 @@ class RikoGame {
       return;
    }
 
-
+   // Updates and draws all active bullets
+   // Returns true if redraw needed (bullet hit enemy)
    method boolean drawBullets(){
       var Bullet b;
       var int i;
@@ -122,6 +138,7 @@ class RikoGame {
       return false;
    }
 
+   // Draws the player base at bottom of screen
    method void drawBase(){
 
 
@@ -142,6 +159,8 @@ class RikoGame {
       return;
    }
    
+   // Main rendering method for the game scene
+   // Returns 1 if game over, 0 otherwise
    method int drawScene(){
       var boolean redraw,isGameOver;
       if(currentDelayCycle=animationDelayCycles)
@@ -163,15 +182,28 @@ class RikoGame {
          return 0;
       }  
    }
+   
+   // Increases level and difficulty when all enemies defeated
+   method void levelUp(){
+      var int speedInc;
+      if(enemyHandler.getEnemiesCount()=0){
+         let level=level+1;
+         let speedInc = Math.multiply(level,5);
+         do enemyHandler.spawnEnemies(level);
+         do enemyHandler.setDelay(speedInc);
+      }
+      
+      return;
+   }
 
-   /** Runs the game: handles the user's inputs and moves the riko accordingly */
+   /** Main game loop - handles input and updates game state */
    method void run() {
       var char key;  // the key currently pressed by the user
       var boolean exit;
       var boolean toShoot;
       let exit = false;
       let toShoot = false;
-      do enemyHandler.spawnEnemies(5);
+      do enemyHandler.spawnEnemies(level);
       do drawBase();
       do riko.draw();
       while (~exit) {
@@ -185,6 +217,7 @@ class RikoGame {
             let key = Keyboard.keyPressed();
             let direction = 0;
             let toShoot = false;
+            do levelUp();
          }
          if (key = 81)  { let exit = true; }     // q key
          if (key = 130) { let direction = 3; }   // left arrow
@@ -202,7 +235,9 @@ class RikoGame {
             if(toShoot){
                let toShoot = false;
                do spawnBullet(riko.getMemLoc());
+               
             } 
+            do levelUp();
          }
      } // while
      return;

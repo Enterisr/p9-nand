@@ -1,30 +1,36 @@
-
+// Class representing a bullet fired by the player
 class Bullet {
 
-   field int screenLoc;
-   static int LENGTH; 
-   static int MOVEMENT;
-   static int animationDelayCycles;
-   field int currentDelayCycle; 
+   field int screenLoc;        // Screen memory address location
+   static int LENGTH;          // Visual length of bullet
+   static int MOVEMENT;        // Movement speed (in memory units)
+   static int animationDelayCycles; // Cycles between movements
+   field int currentDelayCycle;     // Current cycle counter
+   
+   // Constructor - creates a new bullet based on player position
    constructor Bullet new(int playerMemLoc) {
       let screenLoc = playerMemLoc-320;
       let MOVEMENT =256;
       let LENGTH = 10;
-      let animationDelayCycles =300;
+      let animationDelayCycles =100;
       let currentDelayCycle = 0;
       do draw();
       return this;
    }
 
 
+   // Returns the screen memory location
    method int getScreenLoc() {
       return screenLoc;
    }
+   
+   // Frees memory allocated to the bullet
    method void dispose() {
       do Memory.deAlloc(this);
       return;
    }
 
+   // Draws the bullet on screen
    method void draw() {
       var int line, i, memAddress; 
       let memAddress =screenLoc;
@@ -36,8 +42,10 @@ class Bullet {
       }
       return;
    }
+   
+   // Erases the bullet from screen
    method void deleteSprite(){
-      var int res,line, i, memAddress; 
+      var int line, i, memAddress; 
       let memAddress = screenLoc;
       let i = 0;
       while(i<LENGTH){
@@ -48,6 +56,7 @@ class Bullet {
       return;
    }
 
+   // Removes the bullet entirely (erase + dispose)
    method void delete() {
       do deleteSprite();
       do dispose();
@@ -55,7 +64,8 @@ class Bullet {
    }
 
 
-
+   // Moves the bullet forward after delay cycles
+   // Returns 1 if bullet is still active, 0 otherwise
    method int move() {
       
       if(currentDelayCycle=animationDelayCycles){

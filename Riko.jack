@@ -3,15 +3,17 @@
 // by Nisan and Schocken, MIT Press.
 // File name: projects/09/Square/Square.jack
 
-/** Implements a graphical square. */
+/** Player character class for the game */
 class Riko {
 
-   field int memLoc;
-   field int size; 
-   static int MOVEMENT;
-   static int MOVEMENT_DELAY;
-   field int current_cycle;
-   constructor Riko new(int memLocArg) {
+   field int memLoc;         // Screen memory location
+   field int size;           // Size of character
+   static int MOVEMENT;      // Movement speed
+   static int MOVEMENT_DELAY; // Delay between movements
+   field int current_cycle;   // Current movement cycle counter
+   
+   // Constructor - initializes player at default position
+   constructor Riko new() {
 
       let memLoc = 22934;
       let MOVEMENT = 1; 
@@ -21,16 +23,18 @@ class Riko {
       return this;
    }
 
-   /** Disposes this square. */
+   /** Frees memory allocated to this object */
    method void dispose() {
       do Memory.deAlloc(this);
       return;
    }
+   
+   // Returns the memory location
    method int getMemLoc(){
       return memLoc;
    }
 
-   /** Draws the square on the screen. */
+   /** Draws the player character on screen */
    method void draw() {
       var int loc;
       let loc =memLoc;
@@ -102,7 +106,7 @@ class Riko {
       return;
    }
 
-   /** Erases the square from the screen. */
+   /** Erases the player character from screen */
    method void erase() {
          // column 0
       var int loc;
@@ -174,6 +178,7 @@ class Riko {
    }
 
 
+     // Moves player left after delay
      method void moveLeft() {
       var int x;
       if(current_cycle=MOVEMENT_DELAY){
@@ -192,6 +197,7 @@ class Riko {
       return;
    }
 
+   // Moves player right after delay
    method void moveRight() {
       var int x,y;
       if(current_cycle=MOVEMENT_DELAY){
