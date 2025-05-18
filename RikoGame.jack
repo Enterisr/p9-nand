@@ -162,11 +162,12 @@ class RikoGame {
    // Main rendering method for the game scene
    // Returns 1 if game over, 0 otherwise
    method int drawScene(){
-      var boolean redraw,isGameOver;
+      var boolean redraw;
+      var int gameStatus;
       if(currentDelayCycle=animationDelayCycles)
       {
-         let isGameOver = enemyHandler.drawEnemies(baseLocation);
-         if(isGameOver=1){
+         let gameStatus = enemyHandler.drawEnemies(baseLocation);
+         if(gameStatus=1){
             return 1;
          }
          let redraw= drawBullets();
@@ -209,8 +210,8 @@ class RikoGame {
       while (~exit) {
 
          while (key = 0) {         
-            let exit =  drawScene(); 
-            if(exit=1){
+            let exit =  drawScene()=1; 
+            if(exit){
                do handleGameover();
                return;
             }
@@ -225,8 +226,8 @@ class RikoGame {
          if (key = 32)  { let toShoot = true; } //shoot
 
          while (~(key = 0)) {
-            let exit =  drawScene(); 
-            if(exit=1){
+            let exit =  drawScene()=1; 
+            if(exit){
                do handleGameover();
                return;
             }
